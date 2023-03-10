@@ -1,0 +1,2 @@
+# PRM
+Permutation methods calculator.
