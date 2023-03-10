@@ -3,7 +3,7 @@
 ! //         SCHRAUSSER-MAT:
 ! // Permutation methods calculator
 ! //
-! //          PMR v0.0.1
+! //          PRM v0.0.1
 ! //             
 ! //              by 
 ! //      Dietmar G. Schrausser 
@@ -39,7 +39,7 @@ ELSE
 ENDIF
 
 IF inf=1 %Startinfo
- DIALOG.MESSAGE ,"Permutation methods calculator PMR Copyright © 2022 by Dietmar G. SCHRAUSSER + Veritas in materia principii +",m
+ DIALOG.MESSAGE ,"Permutation methods calculator PRM Copyright © 2022 by Dietmar G. SCHRAUSSER + Veritas in materia principii +",m
 ENDIF
 
 ARRAY.LOAD mod$[], "Input","File"
@@ -52,7 +52,7 @@ DIALOG.SELECT mode,mod$[], "Select Mode..."
 SW.BEGIN mode 
  SW.CASE 1 % //        
   sw1g=0: sw2g=0: sw2x2=0 % design switches ini
-  ARRAY.LOAD dsgn$[], "1 Group","2 Groups", "2x2"
+  ARRAY.LOAD dsgn$[], "1 Group","2 Groups", "%2x2"
   DIALOG.SELECT dsgn, dsgn$[], "Select design..."
   SW.BEGIN dsgn
    SW.CASE 1
@@ -242,7 +242,7 @@ SW.BEGIN mode
 
  ! // Parameter 
  param:
- ARRAY.LOAD meth$[], "P","Pr","mP","mPr", "Bt", "Btr"
+ ARRAY.LOAD meth$[], "%P","%Pr","mP","mPr", "Bt", "Btr"
  DIALOG.SELECT meth,meth$[], "Select Methode..."
  SW.BEGIN meth
   SW.CASE 1
@@ -399,9 +399,11 @@ SW.BEGIN mode
   GR.CLS
   GR.COLOR 255,200,200,200,1
   GR.TEXT.BOLD 0
-  GR.TEXT.ALIGN 1
+  GR.TEXT.ALIGN 3
   GR.TEXT.SIZE sx/20
-  GR.TEXT.DRAW tx,5,sy/40, "M="+INT$(m-j) +FORMAT$("pmin: %.###",1/m)
+  GR.TEXT.DRAW tx,sx,sy/40, "M="+INT$(m-j) 
+
+  GR.TEXT.ALIGN 1
   !if j=m
   GR.TEXT.DRAW tx, 5,2*(sy/40), "p<:"+FORMAT$("%.#####",round (ps/j,5))
   IF meth = 2 | meth=4 | meth=6
@@ -411,15 +413,20 @@ SW.BEGIN mode
   ENDIF
 
   GR.TEXT.DRAW tx,5,4*(sy/40), "p>:"+FORMAT$("%.#####",round (pg/j,5))
+  GR.TEXT.ALIGN 1
+  IF 1/m >0.001
+   GR.TEXT.DRAW tx,0,sy/40, "Method: "+met$+FORMAT$(" / pmin=%.###",1/m)
+  ELSE
+   GR.TEXT.DRAW tx,0,sy/40, "Method: "+met$
+  ENDIF
   GR.TEXT.ALIGN 3
-  GR.TEXT.DRAW tx,sx,sy/40, "Method:"+met$
   GR.TEXT.DRAW tx,sx,2*(sy/40), "diff[0]: "+STR$(round (ABS(q0),2))
   ! GR.TEXT.DRAW tx,sx,3*(sy/40), "diff[m]: "+STR$(round (ABS(q1),2))
   GR.TEXT.SIZE sx/15
   GR.TEXT.ALIGN 1
-  GR.TEXT.DRAW tx,5,sy-sy/100, "PMR: "+des$
+  GR.TEXT.DRAW tx,5,sy-sy/100, "PRM: "+des$
   GR.TEXT.ALIGN 2
-  GR.TEXT.SIZE sx/7
+  GR.TEXT.SIZE sx/5
   GR.TEXT.DRAW tx,sx/2-sx/6.5-sx/8,sy/2-sy/6.5, "A"
   GR.TEXT.DRAW tx,sx/2+sx/6.5-sx/8,sy/2-sy/6.5, "B"
   GR.TEXT.ALIGN 2
@@ -430,8 +437,8 @@ SW.BEGIN mode
   GR.TEXT.ALIGN 2
   GR.TEXT.DRAW tx,sx/2+sx/2.6,sy/2-sy/14.5, FORMAT$("p: %.###",bnp)
   GR.TEXT.SIZE sx/12
-  GR.TEXT.DRAW tx,sx/2-sx/6.5-sx/8,sy/2,  STR$(ROUND(am2,2))
-  GR.TEXT.DRAW tx,sx/2+sx/6.5-sx/8,sy/2,  STR$(ROUND(am1,2))
+  GR.TEXT.DRAW tx,sx/2-sx/6.5-sx/8,sy/2,  STR$(ROUND(am1,2))
+  GR.TEXT.DRAW tx,sx/2+sx/6.5-sx/8,sy/2,  STR$(ROUND(am2,2))
   GR.TEXT.SIZE sx/20
   GR.TEXT.DRAW tx,sx/2+sx/2.6,sy/2,    FORMAT$("t:  %.###",twer)
   GR.TEXT.DRAW tx,sx/2+sx/2.6,sy/2+sy/40, FORMAT$("p: %.###",pval)
@@ -718,7 +725,7 @@ NEXT
  RETURN
 
  head:
- TEXT.WRITELN out,"PMR/"+Y$+"."+M$+"."+D$+"/"+h$+":"+min$+":"+sec$+"/"
+ TEXT.WRITELN out,"PRM/"+Y$+"."+M$+"."+D$+"/"+h$+":"+min$+":"+sec$+"/"
  RETURN
 
  lin:
@@ -742,6 +749,6 @@ NEXT
  TEXT.WRITELN f_ini, rnsw
  TEXT.WRITELN f_ini, s00
  TEXT.CLOSE f_ini
- CONSOLE.TITLE "PMR"
+ CONSOLE.TITLE "PRM"
  PRINT"© 2022-23 by Dietmar G. Schrausser"
  RETURN
