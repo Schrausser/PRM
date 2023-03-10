@@ -243,7 +243,7 @@ SW.BEGIN mode
  ! // Parameter 
  param:
  ARRAY.LOAD meth$[], "%P","%Pr","mP","mPr", "Bt", "Btr"
- DIALOG.SELECT meth,meth$[], "Select Methode..."
+ DIALOG.SELECT meth,meth$[], "Select Method..."
  SW.BEGIN meth
   SW.CASE 1
    met$="P"
