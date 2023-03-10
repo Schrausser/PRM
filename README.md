@@ -3,17 +3,17 @@ Permutation methods calculator `PRM` (in development). Android application for t
 
 ![figure.\label{pic1}](pic1.jpg)
 
-### Example Schrausser (1998a), Method = mP.
+#### Example 1 (Schrausser, 1998a), Method = mP.
 
 ![figure.\label{pic2}](pic2.jpg)
 
 
-### Example Schrausser (1998b), Method = mP.
+#### Example 2 (Schrausser, 1998b), Method = mP.
 
 ![figure.\label{pic3}](pic3.jpg)
 
 
-### Example Schrausser (1998b), Method = Btr.
+#### Example 3 (Schrausser, 1998b), Method = Btr.
 
 ![figure.\label{pic4}](pic4.jpg)
 
