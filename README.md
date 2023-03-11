@@ -30,4 +30,4 @@ Edgington, E. S., & Onghena, P. (2007). *Randomization tests* (4th ed). New York
 
 Schrausser, D. G. (2022). Thesis chapter 1: Introduction. In: *Permutation tests:...*. Thesis. Karl Franzens University, Institute of Psychology. Academia. [www.academia.edu/82224369](https://www.academia.edu/82224369/Introduction)
 
-Scambor, C. & Schrausser, D. G. (2023). Introduction (part II, permutation tests for repeated measurement designs).  In:  *Permutation methods in single case studies:...*. Thesis. Karl Franzens University, Institute of Psychology. Academia. [www.academia.edu/94993376](https://www.academia.edu/94993376/Introduction_part_II_permutation_tests_for_repeated_measurement_designs_)
+Scambor, C., & Schrausser, D. G. (2023). Introduction (part II, permutation tests for repeated measurement designs).  In:  *Permutation methods in single case studies:...*. Thesis. Karl Franzens University, Institute of Psychology. Academia. [www.academia.edu/94993376](https://www.academia.edu/94993376/Introduction_part_II_permutation_tests_for_repeated_measurement_designs_)
