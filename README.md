@@ -1,9 +1,14 @@
 # PRM
 Permutation methods calculator `PRM` (in development). Android application for the calculation of permutation tests, see Schrausser (1996, 2022), Edgington & Onghena (2007) or Scambor & Schrausser (2023).
 
+![figure.\label{pic0}](pic0.jpg)
+
+
 ![figure.\label{pic1}](pic1.jpg)
 
-#### Example 1 (Schrausser, 1998a), Method = P.
+
+#### Example 1 (Schrausser, 1998a).
+
 
 ![figure.\label{pic2}](pic2.jpg)
 
@@ -12,7 +17,8 @@ Permutation methods calculator `PRM` (in development). Android application for t
 ![figure.\label{pic3}](pic3.jpg)
 
 
-#### Example 2 (Schrausser, 1998b), Method = Pr.
+#### Example 2 (Schrausser, 1998b).
+
 
 ![figure.\label{pic4}](pic4.jpg)
 
