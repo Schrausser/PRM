@@ -11,11 +11,12 @@
 ! //
 INCLUDE "strg.inc"
 INCLUDE "data1.prm"
-!INCLUDE "data2.prm"
-! INCLUDE "data3.prm"
+INCLUDE "data2.prm"
+INCLUDE "data3.prm"
 ! /////////////////////////////////////////////////////////
 ! //                                              INI file 
-FILE.EXISTS f_ini, "prm.ini"
+pth$="../../PRM/"
+FILE.EXISTS f_ini, pth$+"prm.ini"
 IF f_ini
  TEXT.OPEN r, ini, "prm.ini"
  TEXT.READLN ini, ini$:inf=VAL(ini$)
@@ -53,6 +54,11 @@ IF f_ini
  TEXT.READLN ini, ini$:win2$=ini$
  TEXT.READLN ini, ini$:win3$=ini$
  TEXT.READLN ini, ini$:scm$=ini$
+ TEXT.READLN ini, ini$:scm=VAL(ini$)
+ TEXT.READLN ini, ini$:outsw1=VAL(ini$)
+ TEXT.READLN ini, ini$:outsw2=VAL(ini$)
+ TEXT.READLN ini, ini$:outsw3=VAL(ini$)
+ TEXT.READLN ini, ini$:outsw4=VAL(ini$)
  TEXT.CLOSE ini
 ELSE
  ! // Default //
@@ -67,8 +73,8 @@ ELSE
  meth=1                       % // method switch P       //
  met$="P"                     % // method switch label   //
  m0=10000                     % // initial random cycles //
- fi$="prm_indat.txt"          % // default input file    // 
- mode=2                       % // default input mode    //
+ fi$=""                       % // default input file    // 
+ mode=1                       % // default input mode    //
  thta$="AM Difference [dAM]"  % // default Theta label   //
  thmode=1                     % // default Theta         //
  rnsw$="Sigma"                % // rnd label             //
@@ -91,43 +97,59 @@ ELSE
  win2$=" p~ "                 % // window p val label    //
  win3$=" m~ "                 % // window m label        //
  scm$=" Default"              % // scheme label          //
-
-ENDIF
-m=m0                    % // default m reset       //
+ scm=1                        % // scheme sw             //  
+ outsw1=1                     % // outpt option sw1      //
+ outsw2=1                     % // outpt option sw2      //
+ outsw3=1                     % // outpt option sw3      //
+ outsw4=1                     % // outpt option sw4      //
+!ENDIF
+m=m0                          % // default m reset       //
 IF seed=0
-GOSUB dlgseed:ENDIF     % // seed value
-sgm=34/45               % // sigma                 //
-
-swtl=1                  % // taild switch         //
+GOSUB dlgseed:ENDIF           % // seed value
+sgm=34/45                     % // sigma                 //
+scsw=1                        % // scheme sw ini         //
+dlsw=1                        % // dlgmain sw ini        //
+swtl=1                        % // taild switch          //
 IF sig=2: swtl=-1: ENDIF
 
-st0:
-GR.OPEN 255,150,150,150,0,1
+st0:                          % // start0                //
+
+IF scm=1:GR.OPEN 255,150,150,150,0,1:ENDIF % // Default  //
+IF scm=2:GR.OPEN 255,80,30,30,0,1:ENDIF    % // Red      //
+IF scm=3:GR.OPEN 255,30,80,30,0,1:ENDIF    % // Green    //
+IF scm=4:GR.OPEN 255,30,30,30,0,1:ENDIF    % // Inverted //
+IF scm=5:GR.OPEN 255,255,255,255,0,1:ENDIF % // RGB1     //
+IF scm=6:GR.OPEN 255,200,200,200,0,1:ENDIF % // RGB2     //
+
 GR.SCREEN sx,sy
 
 IF inf=1 %Startinfo
  !DIALOG.MESSAGE ,"Permutation methods calculator PRM v1.0 Copyright © 2023 by Dietmar G. SCHRAUSSER + Veritas in materia principii +",msg
 ENDIF
 
-st:                  % // start               //
+st:                           % // start                 //      
 
-IF mode=2            % // initial file input  //
+IF mode=2                     % // initial file input    //
 GOSUB filinp: ENDIF
 
-s1m=0                % // Simulation sums ini //
-s2m=0                %
-pe=0                 % // p values ini        //
-pg=0                 % //
-ps=0                 % //
-seedsw=0             % // rnd reset           //
+s1m=0                         % // Simulation sums ini   //
+s2m=0                         %
+pe=0                          % // p values ini          //
+pg=0                          % //
+ps=0                          % //
+seedsw=0                      % // rnd reset             //
 
 IF rnsw=-1
- rdz=RANDOMIZE(seed) % // system rnd seed     //
+ rdz=RANDOMIZE(seed)          % // system rnd seed       //
 ENDIF
 
-GOSUB dlgmain        % // main menue          //
+IF dlsw=1 THEN GOSUB dlgmain      % // main menue          //
+IF scsw=0
+ scsw=1:dlsw=0:GR.CLOSE:GOTO st0  % // scheme sw //  
+ENDIF                  
+dlsw=1                            % // dlgmain sw reset            //
 
-IF meth=3 | meth =4  % // mP, mPr             //
+IF meth=3 | meth =4               % // mP, mPr             //
  DIM mP_12[n1+n2,2]
  FOR i=1 TO n1+n2
   mP_12[i,1]=n0_12[i,1]
@@ -135,26 +157,26 @@ IF meth=3 | meth =4  % // mP, mPr             //
  NEXT
 ENDIF
 
-GOSUB tval         % // q0, t value           //
-IF thmode=1        % // dAM                   //
- GOSUB tp          % // t probability         //
+GOSUB tval                    % // q0, t value           //
+IF thmode=1                   % // dAM                   //
+ GOSUB tp                     % // t probability         //
 ENDIF
-GOSUB binom        % // Binomial probability  //
-IF meth <3         % // exact % wP/Matrices   //
+GOSUB binom                   % // Binomial probability  //
+IF meth <3                    % // exact % wP/Matrices   //
  GOSUB perm
  m=perm
- GOSUB exact       % // start position st     //
+ GOSUB exact                  % // start position st     //
  READ.FROM st+1
 ENDIF
 
-
-IF m<=mvd          % // max mv for distr vector d //
+IF m<=mvd                     % // max mv for distr vector d //
  mv=m: ELSE: mv=mvd
 ENDIF
-DIM pvt[mv]        % // Distribution vector d //
+DIM pvt[mv]                   % // Distribution vector d //
 
 ! /////////////////////////////////////////////////////////
 ! //                             Simulations over cycles M
+
 IF meth>2:m_=m-1:ELSE:m_=m:ENDIF
 FOR j=1 TO m_  % // over m //
  DIM q11[n1]
@@ -341,30 +363,111 @@ FOR j=1 TO m_  % // over m //
 
    ! ///////////////////////////////////////////////////////
    ! //                                bar colors and style
+   SW.BEGIN scm
+    SW.CASE 1          % // default //
+     cr01s= 20:cg01s= 20:cb01s= 20
+     cr01g=120:cg01g=120:cb01g=120
+     cr01e= 20:cg01e= 20:cb01e= 20
+     cr0s=  20:cg0s=  20:cb0s=  20
+     cr0g= 120:cg0g= 120:cb0g= 120
+     cr0e=  20:cg0e=  20:cb0e=  20
+     sc1=0
+     SW.BREAK
+    SW.CASE 2          % // red //
+     cr01s=255:cg01s= 30:cb01s= 30
+     cr01g=185:cg01g= 30:cb01g= 30
+     cr01e=255:cg01e= 30:cb01e= 30
+     cr0s= 255:cg0s=  30:cb0s=  30
+     cr0g= 185:cg0g=  30:cb0g=  30
+     cr0e= 255:cg0e=  30:cb0e=  30
+     sc1=1
+     SW.BREAK
+     SW.BREAK
+    SW.CASE 3          % // green //
+     cg01s=255:cr01s= 30:cb01s= 30
+     cg01g=185:cr01g= 30:cb01g= 30
+     cg01e=255:cr01e= 30:cb01e= 30
+     cg0s= 255:cr0s=  30:cb0s=  30
+     cg0g= 185:cr0g=  30:cb0g=  30
+     cg0e= 255:cr0e=  30:cb0e=  30
+     sc1=1
+     SW.BREAK
+    SW.CASE 4          % // inverted //
+     cr01s=150:cg01s=150:cb01s=150
+     cr01g= 90:cg01g= 90:cb01g= 90
+     cr01e=150:cg01e=150:cb01e=150
+     cr0s= 150:cg0s= 150:cb0s= 150
+     cr0g=  90:cg0g=  90:cb0g=  90
+     cr0e= 150:cg0e= 150:cb0e= 150
+     sc1=0
+     SW.BREAK
+    SW.CASE 5          % // RGB1 //
+     cr01s=100:cg01s=220:cb01s=100
+     cr01g=150:cg01g=150:cb01g=150
+     cr01e=100:cg01e=220:cb01e=100
+     cr0s= 100:cg0s= 220:cb0s= 100
+     cr0g= 150:cg0g= 150:cb0g= 150
+     cr0e= 100:cg0e= 220:cb0e= 100
+     sc1=0
+     SW.BREAK
+    SW.CASE 6          % // RGB2 //
+     cr01s=255:cg01s=  0:cb01s=  0
+     cr01g=100:cg01g=100:cb01g=100
+     cr01e=255:cg01e=  0:cb01e=  0
+     cr0s= 255:cg0s=   0:cb0s=   0
+     cr0g= 100:cg0g= 100:cb0g= 100
+     cr0e= 255:cg0e=   0:cb0e=   0
+     sc1=0
+     SW.BREAK
+   SW.END
+
    IF sig=1
     q01=q0+ABS(minp)
-    IF pvt_ <q01 THEN GR.COLOR 255,20,20,20,0  % // q1<q0
-    IF pvt_ >q01 THEN GR.COLOR 255,120,120,120,0 % // q1>q0
-    IF pvt_ =q01 THEN GR.COLOR 255,20,20,20,1 % // q1=q0
+    IF pvt_ =q01 THEN GR.COLOR 255,cr01e,cg01e,cb01e,1 % // q1=q0
+    IF ps/j>0.5&pg/j<0.5
+     IF pvt_ <q01 THEN GR.COLOR 255,cr01s,cg01s,cb01s,sc1 % // q1<q0
+     IF pvt_ >q01 THEN GR.COLOR 255,cr01g,cg01g,cb01g,0 % // q1>q0
+    ELSE
+     IF pvt_ <q01 THEN GR.COLOR 255,cr01g,cg01g,cb01g,0 % // q1<q0
+     IF pvt_ >q01 THEN GR.COLOR 255,cr01s,cg01s,cb01s,sc1 % // q1>q0
+    ENDIF
+
    ENDIF
    IF sig=2
-    IF pvt_ <q0 THEN GR.COLOR 255,20,20,20,0  % // q1<q0
-    IF pvt_ >q0 THEN GR.COLOR 255,120,120,120,0 % // q1>q0
-    IF pvt_ =q0 THEN GR.COLOR 255,20,20,20,1 % // q1=q0
+    IF pvt_ =q0 THEN GR.COLOR 255,cr0e,cg0e,cb0e,1 % // q1=q0
+    IF ps/j>0.5&pg/j<0.5
+     IF pvt_ <q0 THEN GR.COLOR 255,cr0s,cg0s,cb0s,sc1  % // q1<q0
+     IF pvt_ >q0 THEN GR.COLOR 255,cr0g,cg0g,cb0g,0 % // q1>q0
+    ELSE
+     IF pvt_ <q0 THEN GR.COLOR 255,cr0g,cg0g,cb0g,0  % // q1<q0
+     IF pvt_ >q0 THEN GR.COLOR 255,cr0s,cg0s,cb0s,sc1 % // q1>q0
+    ENDIF
    ENDIF
 
    ! ///////distribution/graph/rendering/////////////////////////////////
    GR.RECT rec,(sx/20) +xx0, (sy-sy/20), (sx-sx/20)-xx1, (sy/2+sy/20)-yy1
   NEXT
-  ARRAY.DELETE pvt1[] % // delete tmp vector //
- ENDIF % // graph out sw //
+  ARRAY.DELETE pvt1[]    % // delete tmp vector //
+ ENDIF                   % // graph out sw      //
 
  ! //
  ! //////////// windows /////////////////////////////////////////////
- GR.COLOR 255,130,130,130,1 % head
+ ! // head //
+ IF scm=1:GR.COLOR 255,130,130,130,1:ENDIF % // default //
+ IF scm=2:GR.COLOR 255, 80, 30, 30,1:ENDIF % // red     //
+ IF scm=3:GR.COLOR 255, 30, 80, 30,1:ENDIF % // green   //
+ IF scm=4:GR.COLOR 255,100,100,100,1:ENDIF % // inverted//
+ IF scm=5:GR.COLOR 255,120,150,255,1:ENDIF % // RGB1    //
+ IF scm=6:GR.COLOR 255, 50, 50,255,1:ENDIF % // RGB2    //
  GR.RECT rec, sx/20,sy/2+sy/12,sx-sx/20,sy/2+sy/20 %
  GR.RECT rec, sx/2+sx/5, sy/2-sy/2.95, sx-sx/20, sy/2-sy/2.7
- GR.COLOR 255,180,180,180,1 %
+ IF scm=1:GR.COLOR 255,180,180,180,1:ENDIF % // default //
+ IF scm=2:GR.COLOR 255,255, 30, 30,1:ENDIF % // red     //
+ IF scm=3:GR.COLOR 255, 30,255, 30,1:ENDIF % // green   //
+ IF scm=4:GR.COLOR 255, 30, 30, 30,1:ENDIF % // inverted//
+ IF scm=5:GR.COLOR 255,255,255,255,1:ENDIF % // RGB1    //
+ IF scm=6:GR.COLOR 255,255,255,255,1:ENDIF % // RGB2    //
+
  GR.TEXT.ALIGN 1
  GR.TEXT.SIZE sx/30
  GR.TEXT.DRAW tx,sx/20+sx/100,sy/2+sy/14, met$+" - Distribution" 
@@ -372,10 +475,17 @@ FOR j=1 TO m_  % // over m //
   GR.TEXT.ALIGN 3
   GR.TEXT.DRAW tx,sx-sx/20-sx/100,sy/2+sy/14, fi$
  ENDIF
- GR.COLOR 255,165,165,165, 0
+ ! // window frame //
+ IF scm=1:GR.COLOR 255,165,165,165, 0:ENDIF % // default //
+ IF scm=2:GR.COLOR 255,255, 30, 30, 0:ENDIF % // red //
+ IF scm=3:GR.COLOR 255, 30,255, 30, 0:ENDIF % // green //
+ IF scm=4:GR.COLOR 255, 80, 80, 80, 0:ENDIF % // inverted //
+ IF scm=5:GR.COLOR 255, 100, 100, 100, 0:ENDIF % // RGB1 //
+ IF scm=6:GR.COLOR 80, 230, 230, 230, 1:ENDIF % // RGB2 //
+
  GR.LINE ln, sx/20,sy-sy/20+yy/2+sy/45,sx-(sx/20),sy-sy/20+yy/2+sy/45 % // hor
  GR.LINE ln, sx/20+xx/2,sy-sy/20,sx/20+xx/2,sy/2+sy/12 % // vert
- GR.COLOR 255,200,200,200,0
+ IF scm=1:GR.COLOR 255,200,200,200,0:ENDIF % // default //
  GR.LINE ln, sx/20,sy/2+sy/12,sx-(sx/20),sy/2+sy/12 %
  GR.RECT ln, sx/2+sx/5, sy/2-sy/2.95, sx-sx/20, sy/2-sy/2.95
  GR.RECT rec, sx/20,sy-sy/20,sx-sx/20,sy/2+sy/20 %// bottom
@@ -385,11 +495,20 @@ FOR j=1 TO m_  % // over m //
  ! ////////////////////////////////////////////////////////
  ! //                                        Text rendering 
  IF (pvsw=1|msw=1)|((pvsw=-1&pvsw=-1)&(j=1|j>m_-1)) 
-  GR.COLOR 255,200,200,200,1
+  !!
+  IF scm=1:GR.COLOR 255,200,200,200,1:ENDIF % // default //
+  !!
   GR.TEXT.BOLD 0
   GR.TEXT.ALIGN 3
   GR.TEXT.SIZE sx/20
-  GR.COLOR 255,220,220,220,1
+  ! // meth, p<>, M //
+  IF scm=1:GR.COLOR 255,220,220,220,1:ENDIF % // default //
+  IF scm=2:GR.COLOR 255,255, 30, 30,1:ENDIF % // red     //
+  IF scm=3:GR.COLOR 255, 30,255, 30,1:ENDIF % // green //
+  IF scm=4:GR.COLOR 255,100,100,100,1:ENDIF % // inverted //
+  IF scm=5:GR.COLOR 255,100,220,100,1:ENDIF % // RGB1 //
+  IF scm=6:GR.COLOR 255,10,10,10,1:ENDIF % // RGB2 //
+
   IF (pvsw=-1) % // window sw //
    IF j=1
     GR.TEXT.DRAW tx,sx-sx/13,sy/30, "~m "+INT$(m)
@@ -408,16 +527,22 @@ FOR j=1 TO m_  % // over m //
   GR.TEXT.ALIGN 1
   IF (pvsw=1|msw=1) |(pvsw=-1 & j>m_-1) % // window sw //
    IF ps>0
-    GR.TEXT.DRAW tx, sx/11.7,1.8*(sy/25), " p<:"+FORMAT$("%.#####", ROUND(ps/j,5))+sgps$
+    GR.TEXT.DRAW tx, sx/11.7,1.8*(sy/25), " p>:"+FORMAT$("%.#####", ROUND(ps/j,5))+sgps$
    ENDIF
    IF pg>0
-    GR.TEXT.DRAW tx,sx/11.7,3.2*(sy/25), " p>:"+FORMAT$("%.#####",round (pg/j,5))+sgpg$
+    GR.TEXT.DRAW tx,sx/11.7,3.2*(sy/25), " p<:"+FORMAT$("%.#####",round (pg/j,5))+sgpg$
    ENDIF
   ENDIF
   GR.TEXT.SIZE sx/12
   GR.TEXT.DRAW tx,sx/200,sy/25, met$
-  ! //
-  GR.COLOR 255,200,200,200,1
+  ! // main text, p= //
+  IF scm=1:GR.COLOR 255,200,200,200,1:ENDIF % // default //
+  IF scm=2:GR.COLOR 255,255, 30, 30,1:ENDIF % // red     //
+  IF scm=3:GR.COLOR 255, 30,255, 30,1:ENDIF % // green   //
+  IF scm=4:GR.COLOR 255, 80, 80, 80,1:ENDIF % // inverted//
+  IF scm=5:GR.COLOR 255,90,90,90,1:ENDIF % // RGB1 //
+  IF scm=6:GR.COLOR 255,120,120,120,1:ENDIF % // RGB2 //
+
   GR.TEXT.SIZE sx/20
   IF (pvsw=1|msw=1) |(pvsw=-1 & j>m_-1) % // window sw //
    IF pe>0
@@ -430,8 +555,7 @@ FOR j=1 TO m_  % // over m //
   ELSE 
    GR.TEXT.DRAW tx,sx/11.7,2.5*(sy/25), " p: Iterate over m ..."
   ENDIF
-  ! //
-  GR.COLOR 255,200,200,200,1
+
   IF 1/m >0.00001 % pmin!//////
    GR.TEXT.DRAW tx,sx/6.5,sy/25, FORMAT$("[ %.#####",1/m)+" ]" 
   ENDIF
@@ -487,11 +611,24 @@ FOR j=1 TO m_  % // over m //
    GR.TEXT.DRAW tx,sx-sx/13,sy/2,    FORMAT$("t:  %.###",twer)
   ENDIF
   GR.TEXT.ALIGN 1
-  GR.COLOR 255,220,220,220,1
+  ! // pt //
+  IF scm=1:GR.COLOR 255,220,220,220,1:ENDIF % // default //
+  IF scm=2:GR.COLOR 255,255, 30, 30,1:ENDIF % // red     //
+  IF scm=3:GR.COLOR 255, 30,255, 30,1:ENDIF % // green   //
+  IF scm=4:GR.COLOR 255,100,100,100,1:ENDIF % // inverted//
+  IF scm=5:GR.COLOR 255,100,220,100,1:ENDIF % // RGB1 //
+  IF scm=6:GR.COLOR 255,10,10,10,1:ENDIF % // RGB2 //
+
   IF thmode=1
    GR.TEXT.DRAW tx,sx/2+sx/4.5,sy/2+sy/40, FORMAT$("p: %.###",pval)+sgpv$
   ENDIF
-  GR.COLOR 255,200,200,200,1
+  ! // date //
+  IF scm=1:GR.COLOR 255,200,200,200,1:ENDIF % // default //
+  IF scm=2:GR.COLOR 255,255, 30, 30,1:ENDIF % // red     //
+  IF scm=3:GR.COLOR 255, 30,255, 30,1:ENDIF % // green   //
+  IF scm=4:GR.COLOR 255, 80, 80, 80,1:ENDIF % // inverted//
+  IF scm=5:GR.COLOR 255,120,120,120,1:ENDIF % // RGB1 //
+  IF scm=6:GR.COLOR 255,120,120,120,1:ENDIF % // RGB2 //
   GR.TEXT.SIZE sx/25
   GR.TEXT.ALIGN 3
   GOSUB systime
@@ -502,7 +639,6 @@ FOR j=1 TO m_  % // over m //
  ! //
  GR.TOUCH tc,tx,ty
  IF tc: GOTO en: ENDIF
-
 NEXT j        % // over cycles M           //
 ! //
 
@@ -527,7 +663,6 @@ DO            % // wait    //
   ARRAY.DELETE mP_12[]
   ARRAY.DELETE pvt[]
   ARRAY.DELETE m0_12[]
-
 
   GOTO st
  ENDIF
@@ -658,21 +793,14 @@ RETURN
 ! /////////////////////////////////////////////////////////
 ! //                                 Binomial probabilities
 binom:
-q_b=1-p_b
-bnp0=0
+q_b=1-p_b:bnp0=0
 fa_n=1
-FOR i=1 TO n1+n2
- fa_n=fa_n*i
-NEXT
+FOR i=1 TO n1+n2:fa_n=fa_n*i:NEXT
 FOR i=0 TO n1+n2
  fa_i=1
- FOR j=1 TO i
-  fa_i=fa_i*j
- NEXT
+ FOR j=1 TO i:fa_i=fa_i*j:NEXT
  fa_ni=1
- FOR j=1 TO n1+n2-i
-  fa_ni=fa_ni*j
- NEXT
+ FOR j=1 TO n1+n2-i:fa_ni=fa_ni*j:NEXT
  bpP0=(fa_n/(fa_i*fa_ni))*p_b^i*q_b^(n1+n2-i) 
  bnp0=bnp0+bpP0 
  IF i=n1
@@ -700,9 +828,7 @@ RETURN
 !//////////////////////////////////////////////////////////
 !//                                    Random number n[0,1]
 rand:
-IF seedsw=0
- seed1=seed
-ENDIF
+IF seedsw=0:seed1=seed:ENDIF
 seedsw=1
 rn=seed1^sgm
 nx=10*(rn-FLOOR(rn))-FLOOR(10*(rn-FLOOR(rn)))
@@ -779,693 +905,631 @@ std:
 ARRAY.LOAD main$[], o01$,o02$,o03$,o04$,o05$,o06$,o07$,"OK",o09$
 DIALOG.SELECT main,main$[], "Permutation Methods Calculator PRM v1.0"
 SW.BEGIN main
- SW.CASE 1
-  GOSUB dlgmode
-  SW.BREAK
- SW.CASE 2
-  GOSUB dlgmethod
-  SW.BREAK
+ SW.CASE 1:GOSUB dlgmode:SW.BREAK
+ SW.CASE 2:GOSUB dlgtheta:SW.BREAK
  SW.CASE 3
-  GOSUB dlgm
-  SW.BREAK
- SW.CASE 4
-  INPUT "Seed (0 = timevalue)",seed,0
-  IF seed=0:GOSUB dlgseed:ENDIF
-  SW.BREAK
- SW.CASE 5
-  GOSUB dlgtheta
-  SW.BREAK
- SW.CASE 6
   swtl=swtl*-1
   IF swtl=1:sig=1:ENDIF
   IF swtl=-1:sig=2:ENDIF
   SW.BREAK
- SW.CASE 7
-  GOSUB dlgopt
-  SW.BREAK
- SW.CASE 8
-  IF n1&n2>0
-   RETURN
-  ELSE
-   GOSUB dlgmode
-  ENDIF
-  SW.BREAK
- SW.CASE 9
-  GOSUB fin
-  END
-  SW.BREAK
-SW.END
-GOSUB menu
-GOTO std
-RETURN
-
-menu:
-IF inpt=2:o01$="Input: "+fi$:ENDIF
-IF inpt=1:o01$="Input: "+des$:ENDIF
-o02$="Method: "+met$
-IF meth=2|meth=4|meth=6 %
- o02$="Method: "+met$+" ["+FORMAT$("%.##", rp) +" ]" 
-ENDIF
-IF meth>2: o03$="M: "+INT$(m) :ENDIF
-IF meth<=2: o03$="Exact" :ENDIF
-IF seed>=1: o04$="Seed: "+INT$(seed) : ENDIF
-IF seed<1: o04$="Seed: TIME" : ENDIF
-o05$="Theta: "+thta$
-o06$=INT$(sig)+"-tailed"
-o07$="Options"
-o09$="exit"
-RETURN
-
-! /////////////////////////////////////////////////////////
-! //                                   Raw data input mode
-dlgmode:
-ARRAY.LOAD mod$[], "Input","File","cancel" 
-DIALOG.SELECT mode,mod$[], "Select PRM Mode..."
-SW.BEGIN mode 
- SW.CASE 1        % // direct input    //
-  inpt=1
-  GOSUB dirinp
-  SW.BREAK
- SW.CASE 2        % // File input      //
-  inpt=2
-  GOSUB dlginp
-  GOSUB filinp
-  SW.BREAK
- SW.CASE 3 % //
-  RETURN
-  SW.BREAK
-SW.END
-RETURN
-
-! ////////////////////////////////////////////////////////
-! //                                        Dialog method
-dlgmethod:
-ARRAY.LOAD meth$[], "P","Pr","mP","mPr", "Bt", "Btr"
-DIALOG.SELECT meth,meth$[], "Select PRM Method..."
-SW.BEGIN meth
- SW.CASE 1
-  met$="P"
-  SW.BREAK
- SW.CASE 2
-  met$="Pr"
-  SW.BREAK
- SW.CASE 3
-  met$="mP"
-  SW.BREAK
- SW.CASE 4
-  met$="mPr"
-  SW.BREAK
- SW.CASE 5
-  met$="Bt"
-  SW.BREAK
+ SW.CASE 4:GOSUB dlgmethod:SW.BREAK
+ SW.CASE 5:GOSUB dlgm:SW.BREAK
  SW.CASE 6
-  met$="Btr"
-  SW.BREAK
-SW.END
-IF meth=2|meth=4|meth=6 
- GOSUB dlgmid     % // midp               //
-ENDIF
-IF meth<=2
- GOSUB perm
- m=perm           % // exact permutations //
-ELSE
- m=m0             % // m reset            //
-ENDIF
-RETURN
+  IF meth>2 
+   INPUT "Seed (0 = timevalue)",seed,0
+   IF seed=0:GOSUB dlgseed:ENDIF
+  ENDIF:SW.BREAK
+ SW.CASE 7:GOSUB dlgopt:SW.BREAK
+  SW.CASE 8:IF n1&n2>0:RETURN
+ ELSE:GOSUB dlgmode:ENDIF:SW.BREAK
+SW.CASE 9:GOSUB exit:IF exb=1:GOSUB fin:END:ENDIF:SW.END
+ GOSUB menu
+ GOTO std
+ RETURN
 
-! ////////////////////////////////////////////////////////
-! //                                         direct input
-DIRinp:
-sw1g=0: sw2g=0: sw2x2=0 % design switches ini //
-ARRAY.LOAD dsgn$[], "1 Group","2 Groups", "%2x2", "cancel" 
-DIALOG.SELECT dsgn, dsgn$[], "Select PRM Design..."
-SW.BEGIN dsgn
- SW.CASE 1
-  sw1g=1        % // 1 group design  //
-  des$= "(x)"
-  SW.BREAK
- SW.CASE 2
-  sw2g=1        % // 2 groups design //
-  des$="(x|g)
-  SW.BREAK
- SW.CASE 3
-  sw2x2=1       % // 2x2 design      //
-  des$="(x|g1|g2)
-  SW.BREAK
- SW.CASE 4
-  RETURN
-  SW.BREAK
-SW.END
-
-IF sw2g=1 | sw1g=1
- INPUT "n(1)", n1, 5 % n1   % // input n1 //
- IF sw2g=1
-  INPUT "n(2)", n2, 5 % n2  % // input n2 //
+ menu:
+ IF inpt=2:o01$="Input: "+fi$:ENDIF
+ IF inpt=1:o01$="Input: "+des$:ENDIF
+ o02$="Theta: "+thta$
+ o03$=INT$(sig)+"-tailed"
+ o04$="Method: "+met$
+ IF meth=2|meth=4|meth=6 %
+  o04$="Method: "+met$+" ["+FORMAT$("%.##", rp) +" ]" 
  ENDIF
- IF sw2x2=1
-  ! //////////////2x2/design//////////////
- ENDIF
-ENDIF
-! //                                Direct input //
-IF sw1g=1
- n2=n1
-ENDIF
-ng=n1
-IF n2> ng THEN ng=n2      % // max group n switch //
-DIM n0_1[ng] % Vector a
-DIM n0_2[ng] % Vector b
-DIM n0_12[n1+n2,2]        % // Raw data matrix X  //
-! //                           data input, sum    //
-s1=0
-FOR i=1 TO n1
- inp$="x(1,"+INT$(i)+")"
- INPUT inp$, n0_1[i]
- s1=s1+n0_1[i] % sum1
-NEXT
-s2=0
-IF sw2g=1
- FOR i=1 TO n2
-  inp$="x(2,"+INT$(i)+")"
-  INPUT inp$, n0_2[i]
-  s2=s2+n0_2[i] % sum2
- NEXT
-ENDIF
-
-IF sw1g=1
- am1=s1/n1
- intx$= "am1="+FORMAT$("#.##",am1)+", diff..."
- INPUT intx$, adif, 1       % // crit diff        //
- am0=am1-adif               % // crit mean        //
- FOR i=1 TO n2
-  n0_2[i]=(n0_1[i]-am1)+am0 % // x1 transf to x2 with am0
-  s2=s2+n0_2[i] % sum2
- NEXT
-ENDIF
-! //                    vectors x1, x2 to (x|g)  //
-n=1
-FOR i=1 TO n1+n2
- IF i <=n1
-  n0_12[i,1]=n0_1[i]
-  n0_12[i,2]=n
+ IF meth>2: o05$="M: "+INT$(m) :ENDIF
+ IF meth<=2: o05$="Exact" :ENDIF
+ IF meth>2
+  IF seed>=1: o06$="Seed: "+INT$(seed) : ENDIF
+  IF seed<1: o06$="Seed: TIME" : ENDIF
  ELSE
-  n0_12[i,1]=n0_2[i-n1]
-  n0_12[i,2]=n
+ o06$="______" : ENDIF
+ o07$="Options"
+ o09$="exit"
+ RETURN
+
+ ! /////////////////////////////////////////////////////////
+ ! //                                   Raw data input mode
+ dlgmode:
+ ARRAY.LOAD mod$[], "Input","File","cancel" 
+ DIALOG.SELECT mode,mod$[], "Select PRM Mode..."
+ SW.BEGIN mode 
+  SW.CASE 1                          % // direct input    //
+   inpt=1:GOSUB dirinp:SW.BREAK
+  SW.CASE 2                          % // File input      //
+   inpt=2:GOSUB dlginp:GOSUB filinp:SW.BREAK
+SW.CASE 3:RETURN:SW.END
+ RETURN
+
+ ! ////////////////////////////////////////////////////////
+ ! //                                        Dialog method
+ dlgmethod:
+ ARRAY.LOAD meth$[], "P","Pr","mP","mPr", "Bt", "Btr"
+ DIALOG.SELECT meth,meth$[], "Select PRM Method..."
+ SW.BEGIN meth
+  SW.CASE 1:met$="P":SW.BREAK
+  SW.CASE 2:met$="Pr":SW.BREAK
+  SW.CASE 3:met$="mP":SW.BREAK
+  SW.CASE 4:met$="mPr":SW.BREAK
+  SW.CASE 5:met$="Bt":SW.BREAK
+SW.CASE 6:met$="Btr":SW.END
+ IF meth=2|meth=4|meth=6 
+  GOSUB dlgmid     % // midp               //
  ENDIF
- n=n+1
-NEXT
-RETURN
+ IF meth<=2
+  GOSUB perm
+  m=perm           % // exact permutations //
+ ELSE
+  m=m0             % // m reset            //
+ ENDIF
+ RETURN
 
-! ////////////////////////////////////////////////////////
-! //                                     dialog inputfile
-dlginp:
-DIM inp$[100]
-FILE.DIR pth$, inp$[] 
-SELECT ninp, inp$[], "PRM Data Input File... ", "Select File" 
-fi$=inp$[ninp] 
-ARRAY.DELETE inp$[] 
-RETURN
-
-! ////////////////////////////////////////////////////////
-! //                                           file input
-filinp:
-sw2x2=1                  % // design switches //
-sw1g=0                   %
-filedt$=pth$+fi$
-DIM cin[2,2]             % // n counter ini   //
-FOR i=1 TO 2: cin[i,1]=0: cin[i,2]=0: NEXT
-DIM cin2[2,2]
-FOR i=1 TO 2: cin2[i,1]=0: cin2[i,2]=0: NEXT
-n_=-1 % // n total count
-TEXT.OPEN R, dat, filedt$
-DO
- TEXT.READLN dat, in$
- n_=n_+1 % n counter
-UNTIL in$="EOF"
-TEXT.CLOSE dat
-! // 
-DIM n0_12[n_,3]           % // Raw data matrix X  //
-TEXT.OPEN R, dat, filedt$ % // Raw data read file //
-FOR j=1 TO n_
- TEXT.READLN dat, in$
- in1$="" % ini
- in2$="" %
- in3$="" %
- leng= LEN(in$)           % // string lenght of row //
- sw=0
- FOR i= 1 TO leng
-  lin$= MID$(in$,i,1)
-  IF lin$=" " 
-   sw=sw+1                % // data position switch //
-  ENDIF
-  IF sw=0                 % // Column n=1, 1g design //
-   in1$=in1$+lin$
-   des$="(x)
-  ENDIF
-  IF sw=1                 % // Column n=2, 2g design //
-   in2$=in2$+lin$
+ ! ////////////////////////////////////////////////////////
+ ! //                                         direct input
+ DIRinp:
+ sw1g=0: sw2g=0: sw2x2=0 % design switches ini //
+ ARRAY.LOAD dsgn$[], "1 Group","2 Groups", "%2x2", "cancel" 
+ DIALOG.SELECT dsgn, dsgn$[], "Select PRM Design..."
+ SW.BEGIN dsgn
+  SW.CASE 1
+   sw1g=1        % // 1 group design  //
+   des$= "(x)"
+   SW.BREAK
+  SW.CASE 2
+   sw2g=1        % // 2 groups design //
    des$="(x|g)
+   SW.BREAK
+  SW.CASE 3
+   sw2x2=1       % // 2x2 design      //
+   des$="(x|g1|g2)
+   SW.BREAK
+  SW.CASE 4
+   RETURN
+   SW.BREAK
+ SW.END
+
+ IF sw2g=1 | sw1g=1
+  INPUT "n(1)", n1, 5 % n1   % // input n1 //
+  IF sw2g=1
+   INPUT "n(2)", n2, 5 % n2  % // input n2 //
   ENDIF
-  IF sw=2                 % // Column n=3, 2x2 design //
-   in3$=in3$+lin$
-   des$="(x|g1,g2)
+  IF sw2x2=1
+   ! //////////////2x2/design//////////////
   ENDIF
- NEXT i
- ! //                     Data conversion and readin //
- IF in$<>"EOF" 
-  n0_12[j,1]= VAL(in1$)
-  IF in2$<>"" 
-   n0_12[j,2]= VAL(in2$)
+ ENDIF
+ ! //                                Direct input //
+ IF sw1g=1
+  n2=n1
+ ENDIF
+ ng=n1
+ IF n2> ng THEN ng=n2      % // max group n switch //
+ DIM n0_1[ng] % Vector a
+ DIM n0_2[ng] % Vector b
+ DIM n0_12[n1+n2,2]        % // Raw data matrix X  //
+ ! //                           data input, sum    //
+ s1=0
+ FOR i=1 TO n1
+  inp$="x(1,"+INT$(i)+")"
+  INPUT inp$, n0_1[i]
+  s1=s1+n0_1[i] % sum1
+ NEXT
+ s2=0
+ IF sw2g=1
+  FOR i=1 TO n2
+   inp$="x(2,"+INT$(i)+")"
+   INPUT inp$, n0_2[i]
+   s2=s2+n0_2[i] % sum2
+  NEXT
+ ENDIF
+
+ IF sw1g=1
+  am1=s1/n1
+  intx$= "am1="+FORMAT$("#.##",am1)+", diff..."
+  INPUT intx$, adif, 1       % // crit diff        //
+  am0=am1-adif               % // crit mean        //
+  FOR i=1 TO n2
+   n0_2[i]=(n0_1[i]-am1)+am0 % // x1 transf to x2 with am0
+   s2=s2+n0_2[i] % sum2
+  NEXT
+ ENDIF
+ ! //                    vectors x1, x2 to (x|g)  //
+ n=1
+ FOR i=1 TO n1+n2
+  IF i <=n1
+   n0_12[i,1]=n0_1[i]
+   n0_12[i,2]=n
   ELSE
-   sw1g=1                 % // 1g design             //
+   n0_12[i,1]=n0_2[i-n1]
+   n0_12[i,2]=n
   ENDIF
-  IF in3$<>"" 
-   n0_12[j,3]= VAL(in3$)
-  ELSE
-   sw2x2=0                % // 2g design             //
+  n=n+1
+ NEXT
+ RETURN
+
+ ! ////////////////////////////////////////////////////////
+ ! //                                     dialog inputfile
+ dlginp:
+ DIM inp$[100]
+ FILE.DIR pth$, inp$[] 
+ SELECT ninp, inp$[], "PRM Data Input File... ", "Select File" 
+ fi$=inp$[ninp] 
+ ARRAY.DELETE inp$[] 
+ RETURN
+
+ ! ////////////////////////////////////////////////////////
+ ! //                                           file input
+ filinp:
+ sw2x2=1                  % // design switches //
+ sw1g=0                   %
+ filedt$=pth$+fi$
+ DIM cin[2,2]             % // n counter ini   //
+ FOR i=1 TO 2: cin[i,1]=0: cin[i,2]=0: NEXT
+ DIM cin2[2,2]
+ FOR i=1 TO 2: cin2[i,1]=0: cin2[i,2]=0: NEXT
+ n_=-1 % // n total count
+ TEXT.OPEN R, dat, filedt$
+ DO
+  TEXT.READLN dat, in$
+  n_=n_+1 % n counter
+ UNTIL in$="EOF"
+ TEXT.CLOSE dat
+ ! // 
+ DIM n0_12[n_,3]           % // Raw data matrix X  //
+ TEXT.OPEN R, dat, filedt$ % // Raw data read file //
+ FOR j=1 TO n_
+  TEXT.READLN dat, in$
+  in1$="" % ini
+  in2$="" %
+  in3$="" %
+  leng= LEN(in$)           % // string lenght of row //
+  sw=0
+  FOR i= 1 TO leng
+   lin$= MID$(in$,i,1)
+   IF lin$=" " 
+    sw=sw+1                % // data position switch //
+   ENDIF
+   IF sw=0                 % // Column n=1, 1g design //
+    in1$=in1$+lin$
+    des$="(x)
+   ENDIF
+   IF sw=1                 % // Column n=2, 2g design //
+    in2$=in2$+lin$
+    des$="(x|g)
+   ENDIF
+   IF sw=2                 % // Column n=3, 2x2 design //
+    in3$=in3$+lin$
+    des$="(x|g1,g2)
+   ENDIF
+  NEXT i
+  ! //                     Data conversion and readin //
+  IF in$<>"EOF" 
+   n0_12[j,1]= VAL(in1$)
+   IF in2$<>"" 
+    n0_12[j,2]= VAL(in2$)
+   ELSE
+    sw1g=1                 % // 1g design             //
+   ENDIF
+   IF in3$<>"" 
+    n0_12[j,3]= VAL(in3$)
+   ELSE
+    sw2x2=0                % // 2g design             //
+   ENDIF
+   y= n0_12[j,2]
+   z= n0_12[j,3]
+   ! //counter read in
+   IF y=1 THEN cin[1,1]=cin[1,1]+1
+   IF y=2 THEN cin[2,1]=cin[2,1]+1
+   IF z=1 THEN cin[1,2]=cin[1,2]+1
+   IF z=2 THEN cin[2,2]=cin[2,2]+1
+   IF y=1 & z=1 THEN cin2[1,1]=cin2[1,1]+1
+   IF y=2 & z=1 THEN cin2[2,1]=cin2[2,1]+1
+   IF y=1 & z=2 THEN cin2[1,2]=cin2[1,2]+1
+   IF y=2 & z=2 THEN cin2[2,2]=cin2[2,2]+1
   ENDIF
-  y= n0_12[j,2]
-  z= n0_12[j,3]
-  ! //counter read in
-  IF y=1 THEN cin[1,1]=cin[1,1]+1
-  IF y=2 THEN cin[2,1]=cin[2,1]+1
-  IF z=1 THEN cin[1,2]=cin[1,2]+1
-  IF z=2 THEN cin[2,2]=cin[2,2]+1
-  IF y=1 & z=1 THEN cin2[1,1]=cin2[1,1]+1
-  IF y=2 & z=1 THEN cin2[2,1]=cin2[2,1]+1
-  IF y=1 & z=2 THEN cin2[1,2]=cin2[1,2]+1
-  IF y=2 & z=2 THEN cin2[2,2]=cin2[2,2]+1
- ENDIF
-NEXT j
-TEXT.CLOSE dat 
-! //                          File input, sum       //
-n1=cin[1,1] % n1
-n2=cin[2,1] % n2
-s1=0:s2=0
-i1=1:i2=1
-DIM n0_1[n1]
-DIM n0_2[n2]
-FOR i=1 TO n1+n2
- IF n0_12[i,2]=1
-  s1=s1+n0_12[i,1]  % sum1
-  n0_1[i1]=n0_12[i,1] % vector x1
-  i1=i1+1
- ENDIF
- IF n0_12[i,2]=2
-  s2=s2+n0_12[i,1]  % sum2
-  n0_2[i2]=n0_12[i,1] % vector x2
-  i2=i2+1
- ENDIF
-NEXT
-IF meth<3
- GOSUB perm
- m=perm
-ENDIF
-
-ARRAY.DELETE cin[]
-ARRAY.DELETE cin2[]
-
-
-RETURN
-
-! ////////////////////////////////////////////////////////
-! //                                             Dialog M
-dlgm:
-IF meth>2
- INPUT "Simulation Cycles M", m, m1 % Simulation cycles M
- m0=m
-ENDIF
-RETURN
-
-! ////////////////////////////////////////////////////////
-! //                                             Dialog M
-dlgm1:
-
-RETURN
-
-
-! ////////////////////////////////////////////////////////
-! //                                        Dialog options
-dlgopt:
-opst:
-GOSUB opt
-ARRAY.LOAD opt$[],op00$,op01$,op02$,op03$,op04$,op05$,op06$,op07$,"OK"
-DIALOG.SELECT opt,opt$[], "PRM Options... "
-SW.BEGIN opt
- SW.CASE 1
-!!
-  GOSUB 
-  GOSUB opt
-  GOTO opst
-!!
-  SW.BREAK
- SW.CASE 2
-  GOSUB dlgwnd
-  GOSUB opt
-  GOTO opst
-  SW.BREAK
- SW.CASE 3
-  GOSUB dlgofil
-  GOSUB opt
-  GOTO opst
-  SW.BREAK
-
- SW.CASE 4
-  INPUT "Binomial p[exp]=", p_b, 0.5 % // binom design p //
-  GOSUB opt
-  GOTO opst
-  SW.BREAK
- SW.CASE 5
-  INPUT "Dwass p[crit]=", psg, 0.05 % // dwass p //
-  GOSUB opt
-  GOTO opst
- SW.CASE 6
-  INPUT "Default M", m1, 10000 % // Default Simulation cycles M
-  GOSUB opt
-  GOTO opst
-  SW.BREAK
- SW.CASE 7
-  rnsw=rnsw*-1
-  IF rnsw=1:rnsw$="Sigma":ENDIF
-  IF rnsw=-1:rnsw$="System":ENDIF
-  GOSUB opt
-  GOTO opst
-  SW.BREAK
- SW.CASE 8
-  RETURN
-  SW.BREAK
- SW.CASE 9
-  RETURN
-  SW.BREAK
-SW.END
-GOSUB opt
-RETURN
-
-opt:
-op00$="Scheme: "+scm$
-op01$="Windows: "+win1$+win2$+win3$
-op02$="Files: "+fo1$+fo2$+fo3$
-op03$="Binomial p[exp]: "+ FORMAT$("%.###",p_b)
-op04$="Dwass p[crit]: "+ FORMAT$("%.###",psg)
-op05$="Default M:  "+ INT$(m1)
-op06$="Random: "+ rnsw$
-op07$="Info"
-
-RETURN
-
-! ////////////////////////////////////////////////////////
-! //                                       Dialog outfile
-dlgofil:
-ofil0:
-GOSUB ofil
-ARRAY.LOAD ofl$[], of01$,of02$,of03$,of04$,of05$,"OK"
-DIALOG.SELECT ofl,ofl$[], "Select PRM File streams... "
-SW.BEGIN ofl
- SW.CASE 1
-  INPUT "Data Input File: " , fi$, "prm_indat.txt"
-  GOTO ofil0
-  SW.BREAK
- SW.CASE 2
-  swout=swout*-1
-  fo1$=" [-] "
-  IF swout=1
-   INPUT "Output File: " , fiout$, "prm_out.txt"
-   fo1$=" [Out] "
+ NEXT j
+ TEXT.CLOSE dat 
+ ! //                          File input, sum       //
+ n1=cin[1,1] % n1
+ n2=cin[2,1] % n2
+ s1=0:s2=0
+ i1=1:i2=1
+ DIM n0_1[n1]
+ DIM n0_2[n2]
+ FOR i=1 TO n1+n2
+  IF n0_12[i,2]=1
+   s1=s1+n0_12[i,1]  % sum1
+   n0_1[i1]=n0_12[i,1] % vector x1
+   i1=i1+1
   ENDIF
-  GOTO ofil0
-  SW.BREAK
- SW.CASE 3
-  swdal=swdal*-1
-  fo2$=" [-] "
-  IF swdal=1
-   INPUT "Data Log File: " , fidt$, "prm_outdat.txt"
-   fo2$=" [Dat] "
+  IF n0_12[i,2]=2
+   s2=s2+n0_12[i,1]  % sum2
+   n0_2[i2]=n0_12[i,1] % vector x2
+   i2=i2+1
   ENDIF
-  GOTO ofil0
-  SW.BREAK
- SW.CASE 4
-  swvec=swvec*-1
-  fo3$=" [-] "
-  IF swvec=1
-   INPUT "Distribution Vector File: ", fids$, "prm_pvt.txt"
-   fo3$=" [Dist] "
+ NEXT
+ IF meth<3
+  GOSUB perm
+  m=perm
+ ENDIF
+
+ ARRAY.DELETE cin[]
+ ARRAY.DELETE cin2[]
+
+
+ RETURN
+
+ ! ////////////////////////////////////////////////////////
+ ! //                                             Dialog M
+ dlgm:
+ IF meth>2
+  INPUT "Simulation Cycles M", m, m1 % Simulation cycles M
+  m0=m
+ ENDIF
+ RETURN
+
+
+ ! ////////////////////////////////////////////////////////
+ ! //                                        Dialog options
+ dlgopt:
+ opst:
+ GOSUB opt
+ ARRAY.LOAD opt$[],op00$,op01$,op02$,op03$,op04$,op05$,op06$,op07$,op08$,"OK"
+ DIALOG.SELECT opt,opt$[], "PRM Options... "
+ SW.BEGIN opt
+  SW.CASE 1:GOSUB scheme :GOSUB opt:GOTO opst:SW.BREAK
+  SW.CASE 2:GOSUB dlgwnd :GOSUB opt:GOTO opst:SW.BREAK
+  SW.CASE 3:GOSUB dlgofil:GOSUB opt:GOTO opst:SW.BREAK
+  SW.CASE 4
+   INPUT "Binomial p[exp]=", p_b, 0.5 % // binom design p //
+   GOSUB opt:GOTO opst:SW.BREAK
+  SW.CASE 5
+   INPUT "Dwass p[crit]=", psg, 0.05 % // dwass p //
+   GOSUB opt:GOTO opst:SW.BREAK
+  SW.CASE 6
+   INPUT "Default M", m1, 10000 % // Default Simulation cycles M
+   GOSUB opt:GOTO opst:SW.BREAK
+  SW.CASE 7:rnsw=rnsw*-1
+   IF rnsw=1 :rnsw$="Sigma" :ENDIF
+   IF rnsw=-1:rnsw$="System":ENDIF
+   GOSUB opt:GOTO opst:SW.BREAK
+  SW.CASE 8:RETURN:SW.BREAK
+  SW.CASE 9:SW.BREAK
+SW.CASE 10:RETURN:SW.END
+ GOSUB opt
+ RETURN
+
+ opt:
+ op00$="Scheme: "+scm$
+ op01$="Windows: "+win1$+win2$+win3$
+ op02$="Files: "+fo1$+fo2$+fo3$
+ op03$="Binomial p[exp]: "+ FORMAT$("%.###",p_b)
+ op04$="Dwass p[crit]: "+ FORMAT$("%.###",psg)
+ op05$="Default M:  "+ INT$(m1)
+ op06$="Random: "+ rnsw$
+ op07$="Info"
+ op08$="Reset"
+
+ RETURN
+
+ ! /////////////////////////////////////////////////////////
+ ! //                                          Dialog scheme
+ scheme:
+ GOSUB schem
+ ARRAY.LOAD scm$[], sc01$,sc02$,sc03$,sc04$,sc05$,sc06$ %,"cancel"
+ DIALOG.SELECT scm, scm$[], "Select Color Scheme... "
+ SW.BEGIN scm
+  SW.CASE 1:scm=1:scm$=sc01$:SW.BREAK
+  SW.CASE 2:scm=2:scm$=sc02$:SW.BREAK
+  SW.CASE 3:scm=3:scm$=sc03$:SW.BREAK
+  SW.CASE 4:scm=4:scm$=sc04$:SW.BREAK
+  SW.CASE 5:scm=5:scm$=sc05$:SW.BREAK
+  SW.CASE 6:scm=6:scm$=sc06$:SW.BREAK
+   !SW.CASE 7:RETURN:SW.BREAK
+ SW.END
+ scsw=0
+ RETURN
+
+ schem:
+ sc01$=" Default"
+ sc02$=" Red"
+ sc03$=" Green"
+ sc04$=" Inverted"
+ sc05$=" RGB1"
+ sc06$=" RGB2"
+ RETURN
+
+ ! ////////////////////////////////////////////////////////
+ ! //                                       Dialog outfile
+ dlgofil:
+ ofil0:
+ GOSUB ofil
+ ARRAY.LOAD ofl$[], of01$,of02$,of03$,of04$,of05$,"OK"
+ DIALOG.SELECT ofl,ofl$[], "Select PRM File streams... "
+ SW.BEGIN ofl
+  SW.CASE 1
+   INPUT "Data Input File: " , fi$, "prm_indat.txt"
+   GOTO ofil0:SW.BREAK
+  SW.CASE 2
+   swout=swout*-1
+   fo1$=" [ ] "
+   IF swout=1
+    INPUT "Output File: " , fiout$, "prm_out.txt"
+    GOSUB dlgout:fo1$=" [Out] "
+   ENDIF
+   GOTO ofil0:SW.BREAK
+  SW.CASE 3
+   swdal=swdal*-1
+   fo2$=" [ ] "
+   IF swdal=1
+    INPUT "Data Log File: " , fidt$, "prm_outdat.txt"
+    fo2$=" [Dat] "
+   ENDIF
+   GOTO ofil0:SW.BREAK
+  SW.CASE 4
+   swvec=swvec*-1
+   fo3$=" [ ] "
+   IF swvec=1
+    INPUT "Distribution Vector File: ", fids$, "prm_pvt.txt"
+    fo3$=" [Dist] "
+   ENDIF
+   GOTO ofil0:SW.BREAK
+  SW.CASE 5
+   INPUT "m[max]: ", mvd, 10000
+   GOTO ofil0:SW.BREAK
+SW.CASE 6:RETURN:SW.END
+ GOSUB ofil
+ RETURN
+
+ ofil:
+ of01$="Input: "+fi$
+ of02$="Output: "+fiout$
+ IF swout=-1:of02$="Output: Off":ENDIF
+ of03$="Data Log: "+fidt$
+ IF swdal=-1:of03$="Data Log: Off":ENDIF
+ of04$="Distr. Vector: "+fids$
+ IF swvec=-1:of04$="Distr. Vector: Off":ENDIF
+ of05$="Vector m[max]: "+INT$(mvd)
+ RETURN
+
+ ! ////////////////////////////////////////////////////////
+ ! //                                        Dialog outfile
+ dlgout:
+ dlgout1:
+ osw1$="On":IF outsw1=-1 THEN osw1$="Off"
+ osw2$="On":IF outsw2=-1 THEN osw2$="Off"
+ osw3$="On":IF outsw3=-1 THEN osw3$="Off"
+ osw4$="On":IF outsw4=-1 THEN osw4$="Off"
+ GOSUB outf
+ ARRAY.LOAD ofl$[], ofl01$,ofl02$,ofl03$,ofl04$,"OK"
+ DIALOG.SELECT ofl,ofl$[], "Select Output Options... "
+ SW.BEGIN ofl
+  SW.CASE 1:outsw1=outsw1*-1:GOTO dlgout1:SW.BREAK
+  SW.CASE 2:outsw2=outsw2*-1:GOTO dlgout1:SW.BREAK
+  SW.CASE 3:outsw3=outsw3*-1:GOTO dlgout1:SW.BREAK
+  SW.CASE 4:outsw4=outsw4*-1:GOTO dlgout1:SW.BREAK
+SW.CASE 5:RETURN:SW.END
+ GOSUB outf
+ RETURN
+
+ outf:
+ ofl01$="Binomial p: "+osw1$
+ ofl02$="Raw Values x: "+osw2$
+ ofl03$="Asymptotic p: "+osw3$
+ ofl04$="n<>=: "+osw4$
+ RETURN
+
+ ! ////////////////////////////////////////////////////////
+ ! //                                        Dialog window
+ dlgwnd:
+ wnd0:
+ GOSUB wnd
+ ARRAY.LOAD wnd$[], wn01$,wn02$,wn03$,wn04$,"OK"
+ DIALOG.SELECT wnd,wnd$[], "Select PRM Window Mode... "
+ SW.BEGIN wnd
+   SW.CASE 1:grsw=grsw*-1:IF grsw=1:win1$=" Dist~ "
+  ELSE:win1$=" [Dist] ":ENDIF
+   GOSUB wnd:GOTO wnd0:SW.BREAK
+   SW.CASE 2:pvsw=pvsw*-1:IF pvsw=1:win2$=" p~ "
+  ELSE:win2$=" [p] ":ENDIF
+   GOSUB wnd:GOTO wnd0:SW.BREAK
+   SW.CASE 3:msw=msw*-1:IF msw=1:win3$=" m~ "
+  ELSE:win3$=" [m] ":ENDIF
+   GOSUB wnd:GOTO wnd0:SW.BREAK
+  SW.CASE 4:SW.BREAK
+SW.CASE 5:RETURN:SW.END
+ GOSUB wnd
+ RETURN
+
+ wnd:
+ IF grsw=1:wn01$="Dynamic Distribution: On":ELSE
+ wn01$="Dynamic Distribution: Off":ENDIF
+ IF pvsw=1:wn02$="p values: On":ELSE
+ wn02$="p values: Off":ENDIF
+ IF msw=1:wn03$="M counter: On":ELSE
+ wn03$="M counter: Off":ENDIF
+ wn04$="Vector: On"
+ RETURN
+
+ ! ////////////////////////////////////////////////////////
+ ! //                                          Dialog theta
+ dlgtheta:
+ GOSUB thet
+ ARRAY.LOAD thet$[], ot01$,ot02$,ot03$,ot04$,ot05$,"OK"
+ DIALOG.SELECT thet,thet$[], "Select Theta... "
+ SW.BEGIN thet
+  SW.CASE 1:thta$="dAM":thmode=1:RETURN:SW.BREAK
+  SW.CASE 2:thta$="dSD":thmode=2:RETURN:SW.BREAK
+  SW.CASE 3:thta$="%dMd":thmode=3:RETURN:SW.BREAK
+  SW.CASE 4:thta$=",%dMo":thmode=4:RETURN:SW.BREAK
+  SW.CASE 5:thta$="%%":thmode=5:RETURN:SW.BREAK
+SW.CASE 6:RETURN:SW.END
+ GOSUB thet
+ RETURN
+
+ thet:
+ ot01$="AM Difference [dAM]"
+ ot02$="SD Difference [dSD]"
+ ot03$="%Md Difference [dMd]"
+ ot04$="%Mo Difference [dMo]"
+ ot05$="%____"
+ RETURN
+
+ ! ////////////////////////////////////////////////////////
+ ! //                                          Dialog Seed
+ dlgseed:
+ GOSUB systime
+ seed=INT(SQR(VAL(sec$))*1000) % // timeseed ////
+ RETURN
+
+ ! ////////////////////////////////////////////////////////
+ ! //                                         dialog mid p
+ dlgmid:
+ INPUT "Midp=" , rp, 0.5 % // midp /////////
+ RETURN
+
+ ! ////////////////////////////////////////////////////////
+ ! //                                          File output
+
+ ! ////////////////////////////////////////////////////////
+ ! //                          Distribution vector file out
+ distout:
+ ARRAY.SORT pvt[]
+ fileot$=pth$+fids$
+ TEXT.OPEN A, out, fileot$
+ GOSUB systime
+ GOSUB lin % // - - - - - - - - - - - - - - - - - - - - -
+ GOSUB head
+ GOSUB lin % // - - - - - - - - - - - - - - - - - - - - -
+ FOR i=1 TO mv
+  IF pvt[i] < q0
+   TEXT.WRITELN out, ROUND(pvt[i], 4);_tb$;"-<" 
   ENDIF
-  GOTO ofil0
-  SW.BREAK
- SW.CASE 5
-  INPUT "m[max]: ", mvd, 10000
-  GOTO ofil0
-  SW.BREAK
- SW.CASE 6
-  RETURN
-  SW.BREAK
-SW.END
-GOSUB ofil
-RETURN
-
-ofil:
-of01$="Input: "+fi$
-of02$="Output: "+fiout$
-IF swout=-1:of02$="Output: Off":ENDIF
-of03$="Data Log: "+fidt$
-IF swdal=-1:of03$="Data Log: Off":ENDIF
-of04$="Distr. Vector: "+fids$
-IF swvec=-1:of04$="Distr. Vector: Off":ENDIF
-of05$="Vector m[max]: "+INT$(mvd)
-RETURN
-
-! ////////////////////////////////////////////////////////
-! //                                        Dialog window
-dlgwnd:
-wnd0:
-GOSUB wnd
-ARRAY.LOAD wnd$[], wn01$,wn02$,wn03$,wn04$,"OK"
-DIALOG.SELECT wnd,wnd$[], "Select PRM Window Mode... "
-SW.BEGIN wnd
- SW.CASE 1
-  grsw=grsw*-1
-  IF grsw=1
-   win1$=" Dist~ "
-  ELSE
-   win1$=" [Dist] "
+  IF pvt[i] > q0
+   TEXT.WRITELN out, ROUND(pvt[i],4) ;_tb$;">-" 
   ENDIF
-  GOSUB wnd
-  GOTO wnd0
-  SW.BREAK
- SW.CASE 2
-  pvsw=pvsw*-1
-  IF pvsw=1
-   win2$=" p~ "
-  ELSE
-   win2$=" [p] "
+  IF pvt[i] = q0
+   TEXT.WRITELN out, ROUND(pvt[i], 4);_tb$;"*=*" 
   ENDIF
-  GOSUB wnd
-  GOTO wnd0
-  SW.BREAK
- SW.CASE 3
-  msw=msw*-1
-  IF msw=1
-   win3$=" m~ "
-  ELSE
-   win3$=" [m] "
+ NEXT
+ GOSUB bottom
+ TEXT.CLOSE out
+ RETURN
+
+ ! ////////////////////////////////////////////////////////
+ ! //                                         Log file out 
+ logout:
+ ms$=" M:"+INT$(m)
+ pmn$=" pmin:"+_tb$+FORMAT$("%.###",1/m)
+ pb$=" pb:"+_tb$+FORMAT$("%.###",bnp)+" ["+STR$(ROUND(p_b,2))+"]"
+ pbp$=" Pb:"+_tb$+FORMAT$("%.###",bpP)
+ pb1$=" pb1:"+_tb$+FORMAT$("%.###",bp1)
+ pb2$=" pb2:"+_tb$+FORMAT$("%.###",bp2)
+ tail$=" "+INT$(sig)+"-tailed" 
+ ps$=" p>:"+_tb$+FORMAT$("%.###",ps/m)+sgps$
+ pe$=" p=:"+_tb$+FORMAT$("%.###",pe/m)
+ pg$=" p<:"+_tb$+FORMAT$("%.###",pg/m)+sgpg$
+
+ dif$="" 
+ IF sig=1
+  IF ps/m<=0.05|pg/m<=0.05
+   SW.BEGIN thmode
+    SW.CASE 1
+     IF am1>am2: dif$=">" :ENDIF
+     IF am1<am2: dif$="<" :ENDIF
+     SW.BREAK
+    SW.CASE 2
+     IF SQR(s21)>SQR(s22): dif$=">" :ENDIF
+     IF SQR(s21)<SQR(s22): dif$="<" :ENDIF
+     SW.BREAK
+   SW.END
   ENDIF
-  GOSUB wnd
-  GOTO wnd0
-  SW.BREAK
- SW.CASE 4
-
-  SW.BREAK
- SW.CASE 5
-  RETURN
-  SW.BREAK
-SW.END
-GOSUB wnd
-RETURN
-
-wnd:
-
-IF grsw=1:wn01$="Dynamic Distribution: On":ELSE
-wn01$="Dynamic Distribution: Off":ENDIF
-IF pvsw=1:wn02$="p values: On":ELSE
-wn02$="p values: Off":ENDIF
-IF msw=1:wn03$="M counter: On":ELSE
-wn03$="M counter: Off":ENDIF
-wn04$="Vector: On"
-RETURN
-
-! ////////////////////////////////////////////////////////
-! //                                          Dialog theta
-dlgtheta:
-GOSUB thet
-ARRAY.LOAD thet$[], ot01$,ot02$,ot03$,ot04$,ot05$,"OK"
-DIALOG.SELECT thet,thet$[], "Select Theta... "
-SW.BEGIN thet
- SW.CASE 1
-  thta$="dAM":thmode=1
-  RETURN
-  SW.BREAK
- SW.CASE 2
-  thta$="dSD":thmode=2
-  RETURN
-  SW.BREAK
- SW.CASE 3
-  thta$="%dMd":thmode=3
-  RETURN
-  SW.BREAK
- SW.CASE 4
-  thta$=",%dMo":thmode=4
-  RETURN
-  SW.BREAK
- SW.CASE 5
-  thta$="%%":thmode=5
-  RETURN
-  SW.BREAK
- SW.CASE 6
-  RETURN
-  SW.BREAK
-SW.END
-GOSUB thet
-RETURN
-
-thet:
-ot01$="AM Difference [dAM]"
-ot02$="SD Difference [dSD]"
-ot03$="Md Difference [dMd]"
-ot04$="Mo Difference [dMo]"
-ot05$="..."
-RETURN
-
-! ////////////////////////////////////////////////////////
-! //                                          Dialog Seed
-dlgseed:
-GOSUB systime
-seed=INT(SQR(VAL(sec$))*1000) % // timeseed ////
-RETURN
-
-! ////////////////////////////////////////////////////////
-! //                                         dialog mid p
-dlgmid:
-INPUT "Midp=" , rp, 0.5 % // midp /////////
-RETURN
-
-! ////////////////////////////////////////////////////////
-! //                                          File output
-
-! ////////////////////////////////////////////////////////
-! //                          Distribution vector file out
-distout:
-ARRAY.SORT pvt[]
-fileot$=pth$+fids$
-TEXT.OPEN A, out, fileot$
-GOSUB systime
-GOSUB lin % // - - - - - - - - - - - - - - - - - - - - -
-GOSUB head
-GOSUB lin % // - - - - - - - - - - - - - - - - - - - - -
-FOR i=1 TO mv
- IF pvt[i] < q0
-  TEXT.WRITELN out, ROUND(pvt[i], 4);_tb$;"-<" 
  ENDIF
- IF pvt[i] > q0
-  TEXT.WRITELN out, ROUND(pvt[i],4) ;_tb$;">-" 
- ENDIF
- IF pvt[i] = q0
-  TEXT.WRITELN out, ROUND(pvt[i], 4);_tb$;"*=*" 
- ENDIF
-NEXT
-GOSUB bottom
-TEXT.CLOSE out
-RETURN
-
-! ////////////////////////////////////////////////////////
-! //                                         Log file out 
-logout:
-ms$=" M:"+INT$(m)
-pmn$=" pmin:"+_tb$+FORMAT$("%.###",1/m)
-pb$=" pb:"+_tb$+FORMAT$("%.###",bnp)+" ["+STR$(ROUND(p_b,2))+"]"
-pbp$=" Pb:"+_tb$+FORMAT$("%.###",bpP)
-pb1$=" pb1:"+_tb$+FORMAT$("%.###",bp1)
-pb2$=" pb2:"+_tb$+FORMAT$("%.###",bp2)
-tail$=" "+INT$(sig)+"-tailed" 
-ps$=" p<:"+_tb$+FORMAT$("%.###",ps/m)+sgps$
-pe$=" p=:"+_tb$+FORMAT$("%.###",pe/m)
-pg$=" p>:"+_tb$+FORMAT$("%.###",pg/m)+sgpg$
-
-dif$="" 
-IF sig=1
- IF ps/m<=0.05|pg/m<=0.05
-  SW.BEGIN thmode
-   SW.CASE 1
-    IF am1>am2: dif$=">" :ENDIF
-    IF am1<am2: dif$="<" :ENDIF
-    SW.BREAK
-   SW.CASE 2
-    IF SQR(s21)>SQR(s22): dif$=">" :ENDIF
-    IF SQR(s21)<SQR(s22): dif$="<" :ENDIF
-    SW.BREAK
-  SW.END
- ENDIF
-ENDIF
-IF sig=2
- IF ps/m<=0.05|pg/m<=0.05:dif$=CHR$(8800):ENDIF
-ENDIF
-tw$=" t:"+_tb$+FORMAT$("%.###",ABS(twer))
-sgi=pval:GOSUB sigbr
-pt$= " pt:"+_tb$+FORMAT$("%.###",  pval)+brs$
-pt2$=" qt:"+_tb$+FORMAT$("%.###",1-pval)+brs$
-
-edp$=" eDp:"+_tb$+FORMAT$("%.###",edp)
-eds$=" eD :"+_tb$+FORMAT$("%.###",edsg)+" ["+STR$(ROUND(psg,2))+"]" 
-sed$="seed: "+INT$(seed)
-
-fileot$=pth$+fiout$
-TEXT.OPEN A, out, fileot$
-GOSUB lin% // - - - - - - - - - - - - - - - - - - - - -
-GOSUB systime
-GOSUB head
-GOSUB lin% // - - - - - - - - - - - - - - - - - - - - -
-ng=n1
-IF n2 > ng THEN ng=n2
-TEXT.WRITELN out," ";_tb$;"A";_tb$;_tb$;"B"
-TEXT.WRITELN out," n";_tb$;INT$(n1);_tb$;_tb$;INT$(n2)
-GOSUB lin % // - - - - - - - - - - - - - - - - - - - - -
-TEXT.WRITELN out, pb$  % // binomial p //
-TEXT.WRITELN out, pbp$ % // binomial P //
-TEXT.WRITELN out, pb1$ % // binomial p1 //
-TEXT.WRITELN out, pb2$ % // binomial p2 //
-TEXT.WRITELN out, ""
-FOR i=1 TO ng
- IF i <= n1 & i <= n2
-  TEXT.WRITELN out," "; INT$(i);_tb$;STR$(n0_1[i]);_tb$;_tb$;STR$(n0_2[i])
- ENDIF
- IF i > n1 
-  TEXT.WRITELN out," "; INT$(i);_tb$;_tb$;_tb$;STR$(n0_2[i])
- ENDIF
- IF i > n2
-  TEXT.WRITELN out," "; INT$(i);_tb$;STR$(n0_1[i])
- ENDIF
-NEXT
-TEXT.WRITELN out, ""
-SW.BEGIN thmode
- SW.CASE 1
-  TEXT.WRITELN out," AM";_tb$;STR$(ROUND(am1,2));_tb$;dif$;_tb$;STR$(ROUND(am2,2))
-  TEXT.WRITELN out," SD";_tb$;STR$(ROUND(SQR(s21),2));_tb$;_tb$;STR$(ROUND(SQR(s22),2))
-
-  TEXT.WRITELN out," dAM";_tb$;STR$(ABS(ROUND(q0,2)))
-  SW.BREAK
- SW.CASE 2
-  TEXT.WRITELN out," AM";_tb$;STR$(ROUND(am1,2));_tb$;_tb$;STR$(ROUND(am2,2))
-  TEXT.WRITELN out," SD";_tb$;STR$(ROUND(SQR(s21),2));_tb$;dif$;_tb$;STR$(ROUND(SQR(s22),2))
-
-  TEXT.WRITELN out," dSD";_tb$;STR$(ABS(ROUND(q0,2)))
-  SW.BREAK
-SW.END
-GOSUB lin % // - - - - - - - - - - - - - - - - - - - - -
-TEXT.WRITELN out, tail$ % // tail  //
-IF thmode=1
- TEXT.WRITELN out, ""
- TEXT.WRITELN out, tw$   % // t  //
- TEXT.WRITELN out, pt$   % // pt //
  IF sig=2
-  TEXT.WRITELN out, pt2$ % // qt //
+  IF ps/m<=0.05|pg/m<=0.05:dif$=CHR$(8800):ENDIF
+ ENDIF
+ tw$=" t:"+_tb$+FORMAT$("%.###",ABS(twer))
+ sgi=pval:GOSUB sigbr
+ pt$= " pt:"+_tb$+FORMAT$("%.###",  pval)+brs$
+ pt2$=" qt:"+_tb$+FORMAT$("%.###",1-pval)+brs$
+
+ edp$=" eDp:"+_tb$+FORMAT$("%.###",edp)
+ eds$=" eD :"+_tb$+FORMAT$("%.###",edsg)+" ["+STR$(ROUND(psg,2))+"]" 
+ sed$="seed: "+INT$(seed)
+
+ fileot$=pth$+fiout$
+ TEXT.OPEN A, out, fileot$
+ GOSUB lin% // - - - - - - - - - - - - - - - - - - - - -
+ GOSUB systime
+ GOSUB head
+ GOSUB lin% // - - - - - - - - - - - - - - - - - - - - -
+ ng=n1
+ IF n2 > ng THEN ng=n2
+ TEXT.WRITELN out," ";_tb$;"A";_tb$;_tb$;"B"
+ TEXT.WRITELN out," n";_tb$;INT$(n1);_tb$;_tb$;INT$(n2)
+ GOSUB lin % // - - - - - - - - - - - - - - - - - - - - -
+ IF outsw1=1 % // binomial out //
+  TEXT.WRITELN out, pb$  % // binomial p //
+  TEXT.WRITELN out, pbp$ % // binomial P //
+  TEXT.WRITELN out, pb1$ % // binomial p1 //
+  TEXT.WRITELN out, pb2$ % // binomial p2 //
+  TEXT.WRITELN out, ""
+ ENDIF
+ IF outsw2=1 % // raw values out //
+  FOR i=1 TO ng
+   IF i <= n1 & i <= n2
+    TEXT.WRITELN out," "; INT$(i);_tb$;STR$(n0_1[i]);_tb$;_tb$;STR$(n0_2[i])
+   ENDIF
+   IF i > n1 
+    TEXT.WRITELN out," "; INT$(i);_tb$;_tb$;_tb$;STR$(n0_2[i])
+   ENDIF
+   IF i > n2
+    TEXT.WRITELN out," "; INT$(i);_tb$;STR$(n0_1[i])
+   ENDIF
+  NEXT
+  TEXT.WRITELN out, ""
+ ENDIF
+ SW.BEGIN thmode
+  SW.CASE 1
+   TEXT.WRITELN out," AM";_tb$;STR$(ROUND(am1,2));_tb$;dif$;_tb$;STR$(ROUND(am2,2))
+   TEXT.WRITELN out," SD";_tb$;STR$(ROUND(SQR(s21),2));_tb$;_tb$;STR$(ROUND(SQR(s22),2))
+
+   TEXT.WRITELN out," dAM";_tb$;STR$(ABS(ROUND(q0,2)))
+   SW.BREAK
+  SW.CASE 2
+   TEXT.WRITELN out," AM";_tb$;STR$(ROUND(am1,2));_tb$;_tb$;STR$(ROUND(am2,2))
+   TEXT.WRITELN out," SD";_tb$;STR$(ROUND(SQR(s21),2));_tb$;dif$;_tb$;STR$(ROUND(SQR(s22),2))
+
+   TEXT.WRITELN out," dSD";_tb$;STR$(ABS(ROUND(q0,2)))
+   SW.BREAK
+ SW.END
+ GOSUB lin % // - - - - - - - - - - - - - - - - - - - - -
+ TEXT.WRITELN out, tail$ % // tail  //
+ IF outsw3=1&thmode=1  % // asymptotic p, dAM //
+  TEXT.WRITELN out, ""
+  TEXT.WRITELN out, tw$   % // t  //
+  TEXT.WRITELN out, pt$   % // pt //
+  IF sig=2
+   TEXT.WRITELN out, pt2$ % // qt //
+  ENDIF
  ENDIF
 ENDIF
 TEXT.WRITELN out, "" 
@@ -1477,9 +1541,11 @@ ELSE
 ENDIF
 TEXT.WRITELN out, pg$   % // p>   //
 TEXT.WRITELN out, pmn$  % // pmin //
-TEXT.WRITELN out, "" 
-TEXT.WRITELN out, eds$  % // dwass //
-TEXT.WRITELN out, edp$  % // dwass //
+IF meth=3| meth=4 % // dwass at mP,mPr
+ TEXT.WRITELN out, "" 
+ TEXT.WRITELN out, eds$  % // dwass //
+ TEXT.WRITELN out, edp$  % // dwass //
+ENDIF
 GOSUB lin  % // - - - - - - - - - - - - - - - - - - - - - 
 IF meth <=2
  TEXT.WRITELN out, " Method: ";met$;"/";ms$
@@ -1539,7 +1605,11 @@ RETURN
 bottom:
 TEXT.WRITELN out,"-"
 RETURN
-
+! //
+EXIT:
+DIALOG.MESSAGE "PRM v1.0", "Exit Program... ?", exb, "Yes", "No"
+RETURN
+! //
 ! ///////////////////////////////////////////////////////
 ! //                                      Write ini file
 fin:
@@ -1579,6 +1649,11 @@ TEXT.WRITELN f_ini, win1$
 TEXT.WRITELN f_ini, win2$
 TEXT.WRITELN f_ini, win3$
 TEXT.WRITELN f_ini, scm$
+TEXT.WRITELN f_ini, scm
+TEXT.WRITELN f_ini, outsw1
+TEXT.WRITELN f_ini, outsw2
+TEXT.WRITELN f_ini, outsw3
+TEXT.WRITELN f_ini, outsw4
 TEXT.CLOSE f_ini
 CONSOLE.TITLE "PRMv1.0"
 PRINT"Permutation Methods Calculator PRM"
