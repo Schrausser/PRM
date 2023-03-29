@@ -15,8 +15,7 @@ INCLUDE "data2.prm"
 INCLUDE "data3.prm"
 ! /////////////////////////////////////////////////////////
 ! //                                              INI file 
-pth$="../../PRM/"
-FILE.EXISTS f_ini, pth$+"prm.ini"
+FILE.EXISTS f_ini, "prm.ini"
 IF f_ini
  TEXT.OPEN r, ini, "prm.ini"
  TEXT.READLN ini, ini$:inf=VAL(ini$)
@@ -102,7 +101,7 @@ ELSE
  outsw2=1                     % // outpt option sw2      //
  outsw3=1                     % // outpt option sw3      //
  outsw4=1                     % // outpt option sw4      //
-!ENDIF
+ENDIF
 m=m0                          % // default m reset       //
 IF seed=0
 GOSUB dlgseed:ENDIF           % // seed value
