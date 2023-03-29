@@ -60,7 +60,7 @@ IF f_ini
  TEXT.READLN ini, ini$:outsw4=VAL(ini$)
  TEXT.CLOSE ini
 ELSE
- ! // Default //
+ ! % // Default //
  inf=1                        % // startinfo sw          //
  pth$="../../PRM/"            % // input-output path     //
  p_b=0.5                      % // Binomialdesign p      //
