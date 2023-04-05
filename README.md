@@ -24,6 +24,10 @@ Permutation methods calculator `PRM` (in development). Android application for t
 
 
 
+![figure.\label{pic5}](pic5.jpg)
+
+
+
 ## References
 
 Schrausser, D. G. (1996). Permutationstests: Theoretische und praktische Arbeitsweise von Permutationsverfahren beim unverbundenen 2 Stichprobenproblem. *Diplom*. Institut für Psychologie, Karl Franzens Universität, Graz. [DOI:10.13140/RG.2.2.24500.32640/1](http://doi.org/10.13140/RG.2.2.24500.32640/1)
