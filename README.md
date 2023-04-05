@@ -1,5 +1,5 @@
 # PRM
-Permutation methods calculator `PRM` (in development). Android application for the calculation of permutation tests, see Schrausser (1996, 2022), Edgington & Onghena (2007) or Scambor & Schrausser (2023).
+Permutation Methods Calculator `PRM` (in development). Android application for the calculation of permutation tests, see Schrausser (1996, 2022), Edgington & Onghena (2007) or Scambor & Schrausser (2023).
 
 ![figure.\label{pic0}](pic0.jpg)
 
