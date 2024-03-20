@@ -5,7 +5,7 @@ $$p(x)=p(\theta_{(x)} \ge \Theta_{(x)}|H_0), 0\le p\le1,$$
 
 $$p=\frac{1}{M}\sum_{i=1}^M\theta_{(i)}\ge\Theta_{(x)},$$
 
-see Schrausser (1996, p. , 1998a, b, 2022), Edgington & Onghena (2007) or Scambor & Schrausser (2023).
+see Cox & Hinkley (1974), Schrausser (1996, p. , 1998a, b, 2022), Edgington & Onghena (2007) or Scambor & Schrausser (2023).
 
 ![figure.\label{pic0}](pic0.jpg)
 
@@ -25,6 +25,8 @@ see Schrausser (1996, p. , 1998a, b, 2022), Edgington & Onghena (2007) or Scambo
 ![figure.\label{pic5}](pic5.jpg)
 
 ## References
+
+Cox, D. R., & Hinkley, D. V. (1974). *Theoretical Statistics* (1st ed). Chapman and Hall/CRC. [DOI:10.1201/b14832](https://doi.org/10.1201/b14832)
 
 Edgington, E. S., & Onghena, P. (2007). *Randomization tests* (4th ed). New York: Chapman and Hall/CRC. `ISBN 9780367577711, eBook ISBN 9780429142710` [DOI:10.1201/9781420011814](https://doi.org/10.1201/9781420011814)
 
