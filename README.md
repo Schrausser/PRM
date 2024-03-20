@@ -26,7 +26,7 @@ see Cox & Hinkley (1974), Schrausser (1996, p. 4-22 ff., 1998a, b, 2022), Edging
 
 ## References
 
-Cox, D. R., & Hinkley, D. V. (1974). *Theoretical Statistics* (1st ed). Chapman and Hall/CRC. [DOI:10.1201/b14832](https://doi.org/10.1201/b14832)
+Cox, D. R., & Hinkley, D. V. (1974). *Theoretical Statistics* (1st ed). Chapman and Hall/CRC. `eBook ISBN 9780429170218` [DOI:10.1201/b14832](https://doi.org/10.1201/b14832)
 
 Edgington, E. S., & Onghena, P. (2007). *Randomization tests* (4th ed). New York: Chapman and Hall/CRC. `ISBN 9780367577711, eBook ISBN 9780429142710` [DOI:10.1201/9781420011814](https://doi.org/10.1201/9781420011814)
 
