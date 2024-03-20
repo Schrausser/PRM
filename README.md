@@ -5,7 +5,7 @@ $$p(x)=p(\theta_{(x)} \ge \Theta_{(x)}|H_0), 0\le p\le1,$$
 
 $$p=\frac{1}{M}\sum_{i=1}^M\theta_{(i)}\ge\Theta_{(x)},$$
 
-see Cox & Hinkley (1974), Schrausser (1996, p. , 1998a, b, 2022), Edgington & Onghena (2007) or Scambor & Schrausser (2023).
+see Cox & Hinkley (1974), Schrausser (1996, p. 4-22 ff., 1998a, b, 2022), Edgington & Onghena (2007) or Scambor & Schrausser (2023).
 
 ![figure.\label{pic0}](pic0.jpg)
 
