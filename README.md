@@ -1,7 +1,9 @@
 # PRM
-Permutation Methods Calculator `PRM` (in development). Android application for the calculation of permutation tests, where
+Permutation Methods Calculator `PRM` (in development). Android application for the calculation of *permutation tests*, where
 
 $$p(x)=p(\theta_{(x)} \ge \Theta_{(x)}|H_0), 0\le p\le1,$$
+
+$$p=\frac{1}{M}\sum_{i=1}^M\theta_{(i)}\ge\Theta_{(x)},$$
 
 see Schrausser (1996, p. , 1998a, b, 2022), Edgington & Onghena (2007) or Scambor & Schrausser (2023).
 
