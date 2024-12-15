@@ -8,7 +8,7 @@ $$p(x)=p(\theta_{(x)} \ge \Theta_{(x)}|H_0), 0\le p\le1,$$
 
 $$p=\frac{1}{M}⋅\sum_{i=1}^M\theta_{(i)}\ge\Theta_{(x)},$$
 
-see Cox & Hinkley (1974), Schrausser (1996, p. 4-22 ff., 1998a, b, 2022), Edgington & Onghena (2007) or Scambor & Schrausser (2023).
+see Cox & Hinkley (1974), Schrausser (1996, p. 4-22 ff., 1998a, b, 2022), Edgington & Onghena (2007) or Scambor & Schrausser (2023), also Schrausser (2024, p. ).
 
 ![figure.\label{pic0}](pic0.jpg)
 
@@ -43,3 +43,4 @@ Schrausser, D. G. (1996). Permutationstests: Theoretische und praktische Arbeits
 
 ———. (2022). Thesis chapter 1: Introduction. In: *Permutation tests:...*. Thesis. Karl Franzens University, Institute of Psychology. Academia. [www.academia.edu/82224369](https://www.academia.edu/82224369/Introduction)
 
+———. 2024. Handbook: *Distribution Functions (Verteilungs Funktionen)*. PsyArXiv. [DOI:10.31234/osf.io/rvzxa] (https://doi.org/10.31234/osf.io/rvzxa)
