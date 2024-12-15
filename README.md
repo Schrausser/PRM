@@ -37,7 +37,7 @@ Scambor, C., & Schrausser, D. G. (2023). Introduction (part II, permutation test
 
 Schrausser, D. G. (1996). Permutationstests: Theoretische und praktische Arbeitsweise von Permutationsverfahren beim unverbundenen 2 Stichprobenproblem. *Diplom*. Institut für Psychologie, Karl Franzens Universität, Graz. [DOI:10.13140/RG.2.2.24500.32640/1](http://doi.org/10.13140/RG.2.2.24500.32640/1)
 
-———. (1998a). Exakte Verfahren oder Asymptotische Approximation. In: Glück. J., Jirasco, M., & Rollett, B. (Hrsg.) *Perspektiven psychologischer Forschung in Österreich*, Teil 2. WUV-Univ.-Verl., Wien. `ISBN 9783851144413, ISBN 3851144414` [DOI:10.5281/zenodo.11673333](https://doi.org/10.5281/zenodo.11673333)
+———. (1998a). Exakte Verfahren oder Asymptotische Approximation. In: Glück. J., Jirasco, M., & Rollett, B. (Hrsg.) *Perspektiven psychologischer Forschung in Österreich*, Teil 2. WUV-Univ.-Verl., Wien. `ISBN 3851144414` [DOI:10.5281/zenodo.11673333](https://doi.org/10.5281/zenodo.11673333)
 
 ———. (1998b). Die Permutationsmethode: Voraussetzungsfrei testen. *41. Kongreß der Deutschen Gesellschaft für Psychologie (DGPs)*. Dresden. [DOI:10.13140/rg.2.2.19532.69768 ](http://doi.org/10.13140/rg.2.2.19532.69768)
 
