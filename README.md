@@ -8,7 +8,7 @@ $$p(x)=p(\theta_{(x)} \ge \Theta_{(x)}|H_0), 0\le p\le1,$$
 
 $$p=\frac{1}{M}⋅\sum_{i=1}^M\theta_{(i)}\ge\Theta_{(x)},$$
 
-see Cox & Hinkley (1974), Schrausser (1996, p. 4-22 ff., 1998a, b, 2022), Edgington & Onghena (2007) or Scambor & Schrausser (2023), also Schrausser (2024, p. ).
+see Cox & Hinkley (1974), Schrausser (1996, p. 4-22 ff., 1998a, b, 2022), Edgington & Onghena (2007) or Scambor & Schrausser (2023), also Schrausser (2024, p. 29).
 
 ![figure.\label{pic0}](pic0.jpg)
 
@@ -37,7 +37,7 @@ Scambor, C., & Schrausser, D. G. (2023). Introduction (part II, permutation test
 
 Schrausser, D. G. (1996). Permutationstests: Theoretische und praktische Arbeitsweise von Permutationsverfahren beim unverbundenen 2 Stichprobenproblem. *Diplom*. Institut für Psychologie, Karl Franzens Universität, Graz. [DOI:10.13140/RG.2.2.24500.32640/1](http://doi.org/10.13140/RG.2.2.24500.32640/1)
 
-———. (1998a). Exakte Verfahren oder Asymptotische Approximation. In: Glück. J., Jirasco, M., & Rollett, B. (Hrsg.) *Perspektiven psychologischer Forschung in Österreich*, Teil 2. WUV-Univ.-Verl., Wien. `ISBN 9783851144413, ISBN 3851144414` [ISBN:9783851144413](https://www.worldcat.org/de/search?q=bn:9783851144413)
+———. (1998a). Exakte Verfahren oder Asymptotische Approximation. In: Glück. J., Jirasco, M., & Rollett, B. (Hrsg.) *Perspektiven psychologischer Forschung in Österreich*, Teil 2. WUV-Univ.-Verl., Wien. `ISBN 9783851144413, ISBN 3851144414` [DOI:10.5281/zenodo.11673333](https://doi.org/10.5281/zenodo.11673333.)
 
 ———. (1998b). Die Permutationsmethode: Voraussetzungsfrei testen. *41. Kongreß der Deutschen Gesellschaft für Psychologie (DGPs)*. Dresden. [DOI:10.13140/rg.2.2.19532.69768 ](http://doi.org/10.13140/rg.2.2.19532.69768)
 
