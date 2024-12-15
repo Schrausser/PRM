@@ -43,4 +43,4 @@ Schrausser, D. G. (1996). Permutationstests: Theoretische und praktische Arbeits
 
 ———. (2022). Thesis chapter 1: Introduction. In: *Permutation tests:...*. Thesis. Karl Franzens University, Institute of Psychology. Academia. [www.academia.edu/82224369](https://www.academia.edu/82224369/Introduction)
 
-———. 2024. Handbook: *Distribution Functions (Verteilungs Funktionen)*. PsyArXiv. [DOI:10.31234/osf.io/rvzxa] (https://doi.org/10.31234/osf.io/rvzxa)
+———. 2024. Handbook: *Distribution Functions (Verteilungs Funktionen)*. PsyArXiv. [DOI:10.31234/osf.io/rvzxa](https://doi.org/10.31234/osf.io/rvzxa)
