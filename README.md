@@ -8,22 +8,22 @@ $$p(x)=p(\theta_{(x)} \ge \Theta_{(x)}|H_0), 0\le p\le1,$$
 
 $$p=\frac{1}{M}⋅\sum_{i=1}^M\theta_{(i)}\ge\Theta_{(x)},$$
 
-first mentioned by Fisher (1935), based on his own account of experiments in agriculture (Fisher, 1926) and the work by Neyman (1923).
+first mentioned by Fisher ([1935](https://psycnet.apa.org/record/1939-04964-000)), based on his own account of experiments in agriculture (Fisher, [1926](https://doi.org/10.23637/rothamsted.8v61q)) and the work by Neyman ([1923](https://link.springer.com/chapter/10.1007/978-94-015-8816-4_10)).
 
-See further Pitman (1937a, b, 1938), Fisher (1966, 1971), Cox & Hinkley (1974), Schrausser (1996, p. 4-22 ff., 1998a, b, 2022), Edgington & Onghena (2007) or Scambor & Schrausser (2023), also Schrausser (2024, p. 29).
+See further Pitman ([1937a](http://www.jstor.org/stable/2984124), [b](http://www.jstor.org/stable/2983647), [1938](http://www.jstor.org/stable/2332008)), Fisher ([1966](https://scirp.org/reference/referencespapers.aspx?referenceid=895747), [1971](https://home.iitk.ac.in/~shalab/anova/DOE-RAF.pdf)), Cox and Hinkley ([1974](https://doi.org/10.1201/b14832)), Schrausser ([1996](https://zenodo.org/records/11529663), p. 4-22 ff., [1998a](https://doi.org/10.5281/zenodo.11673333), [b](http://doi.org/10.13140/rg.2.2.19532.69768), [2022](https://www.academia.edu/82224369/Introduction)), Edgington and Onghena ([2007](https://doi.org/10.1201/9781420011814)) or Scambor and Schrausser ([2023](https://www.academia.edu/94993376/Introduction_part_II_permutation_tests_for_repeated_measurement_designs_)), also Schrausser ([2024](https://doi.org/10.31234/osf.io/rvzxa), p. 29).
 
 ![figure.\label{pic0}](pic0.jpg)
 
 ![figure.\label{pic1}](pic1.jpg)
 
-#### Example 1 (c.f. Schrausser, 1998a).
+#### Example 1 (c.f. Schrausser, [1998a](https://doi.org/10.5281/zenodo.11673333)).
 
 ![figure.\label{pic2}](pic2.jpg)
 
 ![figure.\label{pic3}](pic3.jpg)
 
 
-#### Example 2 (c.f. Schrausser, 1998b).
+#### Example 2 (c.f. Schrausser, [1998b](http://doi.org/10.13140/rg.2.2.19532.69768)).
 
 ![figure.\label{pic4}](pic4.jpg)
 
@@ -39,17 +39,17 @@ Fisher, R. A. (1926). The Arrangement of Field Experiments. *Journal of the Mi
 
 ———. (1935). *The Design of Experiments*. 1st ed. Edinburgh: Oliver & Boyd. [https://psycnet.apa.org/record/1939-04964-000](https://psycnet.apa.org/record/1939-04964-000)
 
-———. (1966). *The Design of Experiments*. 8th ed. Edinburgh: Hafner. https://scirp.org/reference/referencespapers.aspx?referenceid=895747
+———. (1966). *The Design of Experiments*. 8th ed. Edinburgh: Hafner. [https://scirp.org/reference/referencespapers.aspx?referenceid=895747](https://scirp.org/reference/referencespapers.aspx?referenceid=895747)
 
-———. (1971). *The Design of Experiments*. 9th ed. New York: Hafner Press. https://home.iitk.ac.in/~shalab/anova/DOE-RAF.pdf
+———. (1971). *The Design of Experiments*. 9th ed. New York: Hafner Press. [https://home.iitk.ac.in/~shalab/anova/DOE-RAF.pdf](https://home.iitk.ac.in/~shalab/anova/DOE-RAF.pdf)
 
-Neyman, J. (1923). Sur les applications de la theorie des probabilites aux experience agricoles: Essay de principes. *Roczniki Nank Polniczek 10*: 1–51. https://link.springer.com/chapter/10.1007/978-94-015-8816-4_10
+Neyman, J. (1923). Sur les applications de la theorie des probabilites aux experience agricoles: Essay de principes. *Roczniki Nank Polniczek 10*: 1–51. [https://link.springer.com/chapter/10.1007/978-94-015-8816-4_10](https://link.springer.com/chapter/10.1007/978-94-015-8816-4_10)
 
-Pitman, E. J. G. (1937a). Significance Tests Which May Be Applied to Samples from Any Populations. *Supplement to the Journal of the Royal Statistical Society 4* (1): 119–30. http://www.jstor.org/stable/2984124
+Pitman, E. J. G. (1937a). Significance Tests Which May Be Applied to Samples from Any Populations. *Supplement to the Journal of the Royal Statistical Society 4* (1): 119–30. [http://www.jstor.org/stable/2984124](http://www.jstor.org/stable/2984124)
 
-———. (1937b). Significance Tests Which May Be Applied to Samples from Any Populations. II. The Correlation Coefficient Test. *Supplement to the Journal of the Royal Statistical Society 4* (2): 225–32. http://www.jstor.org/stable/2983647
+———. (1937b). Significance Tests Which May Be Applied to Samples from Any Populations. II. The Correlation Coefficient Test. *Supplement to the Journal of the Royal Statistical Society 4* (2): 225–32. [http://www.jstor.org/stable/2983647](http://www.jstor.org/stable/2983647)
 
-———. (1938). Significance Tests Which May Be Applied to Samples from Any Populations: III. The Analysis of Variance Test. *Biometrika 29* (3/4): 322–35. http://www.jstor.org/stable/2332008
+———. (1938). Significance Tests Which May Be Applied to Samples from Any Populations: III. The Analysis of Variance Test. *Biometrika 29* (3/4): 322–35. [http://www.jstor.org/stable/2332008](http://www.jstor.org/stable/2332008)
 
 Scambor, C., & Schrausser, D. G. (2023). Introduction (part II, permutation tests for repeated measurement designs).  In:  *Permutation methods in single case studies:...*. Thesis. Karl Franzens University, Institute of Psychology. Academia. [www.academia.edu/94993376](https://www.academia.edu/94993376/Introduction_part_II_permutation_tests_for_repeated_measurement_designs_)
 
