@@ -35,21 +35,21 @@ Cox, D. R., & Hinkley, D. V. (1974). *Theoretical Statistics* (1st ed). New York
 
 Edgington, E. S., & Onghena, P. (2007). *Randomization tests* (4th ed). New York: Chapman and Hall/CRC. `ISBN 9780367577711, eBook ISBN 9780429142710` [DOI:10.1201/9781420011814](https://doi.org/10.1201/9781420011814)
 
-Fisher, R. A. (1926). The Arrangement of Field Experiments. *Journal of the Ministry of Agriculture 33*: 503–15. [DOI:10.23637/rothamsted.8v61q](https://doi.org/10.23637/rothamsted.8v61q)
+Fisher, R. A. (1926). The Arrangement of Field Experiments. *Journal of the Ministry of Agriculture, 33*, 503–15. [DOI:10.23637/rothamsted.8v61q](https://doi.org/10.23637/rothamsted.8v61q)
 
-———. (1935). *The Design of Experiments*. 1st ed. Edinburgh: Oliver & Boyd. [https://psycnet.apa.org/record/1939-04964-000](https://psycnet.apa.org/record/1939-04964-000)
+———. (1935). *The Design of Experiments*. 1st ed. Edinburgh: Oliver & Boyd. [https://psycnet.apa.org/record/1939-04964-000](https://psycnet.apa.org/record/1939-04964-000)
 
-———. (1966). *The Design of Experiments*. 8th ed. Edinburgh: Hafner. [https://scirp.org/reference/referencespapers.aspx?referenceid=895747](https://scirp.org/reference/referencespapers.aspx?referenceid=895747)
+———. (1966). *The Design of Experiments*. 8th ed. Edinburgh: Hafner. [https://scirp.org/reference/referencespapers.aspx?referenceid=895747](https://scirp.org/reference/referencespapers.aspx?referenceid=895747)
 
-———. (1971). *The Design of Experiments*. 9th ed. New York: Hafner Press. [https://home.iitk.ac.in/~shalab/anova/DOE-RAF.pdf](https://home.iitk.ac.in/~shalab/anova/DOE-RAF.pdf)
+———. (1971). *The Design of Experiments*. 9th ed. New York: Hafner Press. [https://home.iitk.ac.in/~shalab/anova/DOE-RAF.pdf](https://home.iitk.ac.in/~shalab/anova/DOE-RAF.pdf)
 
-Neyman, J. (1923). Sur les applications de la theorie des probabilites aux experience agricoles: Essay de principes. *Roczniki Nank Polniczek 10*: 1–51. [https://link.springer.com/chapter/10.1007/978-94-015-8816-4_10](https://link.springer.com/chapter/10.1007/978-94-015-8816-4_10)
+Neyman, J. (1923). Sur les applications de la theorie des probabilites aux experience agricoles: Essay de principes. *Roczniki Nank Polniczek, 10*, 1–51. [https://link.springer.com/chapter/10.1007/978-94-015-8816-4_10](https://link.springer.com/chapter/10.1007/978-94-015-8816-4_10)
 
-Pitman, E. J. G. (1937a). Significance Tests Which May Be Applied to Samples from Any Populations. *Supplement to the Journal of the Royal Statistical Society 4* (1): 119–30. [http://www.jstor.org/stable/2984124](http://www.jstor.org/stable/2984124)
+Pitman, E. J. G. (1937a). Significance Tests Which May Be Applied to Samples from Any Populations. *Supplement to the Journal of the Royal Statistical Society, 4*(1), 119–30. [http://www.jstor.org/stable/2984124](http://www.jstor.org/stable/2984124)
 
-———. (1937b). Significance Tests Which May Be Applied to Samples from Any Populations. II. The Correlation Coefficient Test. *Supplement to the Journal of the Royal Statistical Society 4* (2): 225–32. [http://www.jstor.org/stable/2983647](http://www.jstor.org/stable/2983647)
+———. (1937b). Significance Tests Which May Be Applied to Samples from Any Populations. II. The Correlation Coefficient Test. *Supplement to the Journal of the Royal Statistical Society, 4*(2), 225–32. [http://www.jstor.org/stable/2983647](http://www.jstor.org/stable/2983647)
 
-———. (1938). Significance Tests Which May Be Applied to Samples from Any Populations: III. The Analysis of Variance Test. *Biometrika 29* (3/4): 322–35. [http://www.jstor.org/stable/2332008](http://www.jstor.org/stable/2332008)
+———. (1938). Significance Tests Which May Be Applied to Samples from Any Populations: III. The Analysis of Variance Test. *Biometrika, 29*(3/4), 322–35. [http://www.jstor.org/stable/2332008](http://www.jstor.org/stable/2332008)
 
 Scambor, C., & Schrausser, D. G. (2023). Introduction (part II, permutation tests for repeated measurement designs).  In:  *Permutation methods in single case studies:...*. Thesis. Karl Franzens University, Institute of Psychology. Academia. [www.academia.edu/94993376](https://www.academia.edu/94993376/Introduction_part_II_permutation_tests_for_repeated_measurement_designs_)
 
