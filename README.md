@@ -31,6 +31,8 @@ See further Pitman ([1937a](http://www.jstor.org/stable/2984124), [b](http://www
 
 **Figure 6.** Bootstrap method *Bt*. ![figure.\label{pic5}](pic5.jpg)
 
+<br>
+
 ## References
 
 Cox, D. R., & Hinkley, D. V. (1974). *Theoretical Statistics* (1st ed). New York: Chapman and Hall/CRC. `eBook ISBN 9780429170218` [DOI:10.1201/b14832](https://doi.org/10.1201/b14832)
