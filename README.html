@@ -1,0 +1,74 @@
+<html> 
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="Author" content="Dietmar Gerald Schrausser">
+
+<title>
+PRM/README
+</title>
+
+</head> 
+<body style="font-family:calibri;font-size:85%;background-color:#efebe9;color:#37474f">
+
+<style>
+a {color: #78909c; }
+a:visited {color: #78909c;}
+img {max-width: 45%;}
+</style>
+<h1 id="prm">PRM</h1>
+<p><a href="https://m.youtube.com/watch?v=rSWb_eTAjSk&amp;t=0s">Demo movie</a></p>
+<p>Permutation Methods Calculator <code>PRM</code> (in development). Android application for the calculation of <em>permutation tests</em>, where</p>
+<p><math display="block"><mi>p</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>p</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mrow data-mjx-texclass="ORD"><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></msub><mo>≥</mo><msub><mi mathvariant="normal">Θ</mi><mrow data-mjx-texclass="ORD"><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></msub><mrow data-mjx-texclass="ORD"><mo stretchy="false">|</mo></mrow><msub><mi>H</mi><mn>0</mn></msub><mo stretchy="false">)</mo><mo>,</mo><mn>0</mn><mo>≤</mo><mi>p</mi><mo>≤</mo><mn>1</mn><mo>,</mo></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>p</mi><mo>=</mo><mfrac><mn>1</mn><mi>M</mi></mfrac><mo>⋅</mo><munderover><mo data-mjx-texclass="OP">∑</mo><mrow data-mjx-texclass="ORD"><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>M</mi></munderover><msub><mi>θ</mi><mrow data-mjx-texclass="ORD"><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo></mrow></msub><mo>≥</mo><msub><mi mathvariant="normal">Θ</mi><mrow data-mjx-texclass="ORD"><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></msub><mo>,</mo></math></p>
+<p>first mentioned by Fisher (<a href="https://psycnet.apa.org/record/1939-04964-000">1935</a>), based on his own account of experiments in agriculture (Fisher, <a href="https://doi.org/10.23637/rothamsted.8v61q">1926</a>) and the work by Neyman (<a href="https://link.springer.com/chapter/10.1007/978-94-015-8816-4_10">1923</a>).</p>
+<p>See further Pitman (<a href="http://www.jstor.org/stable/2984124">1937a</a>, <a href="http://www.jstor.org/stable/2983647">b</a>, <a href="http://www.jstor.org/stable/2332008">1938</a>), Fisher (<a href="https://scirp.org/reference/referencespapers.aspx?referenceid=895747">1966</a>, <a href="https://home.iitk.ac.in/~shalab/anova/DOE-RAF.pdf">1971</a>), Cox and Hinkley (<a href="https://doi.org/10.1201/b14832">1974</a>), Schrausser (<a href="https://zenodo.org/records/11529663">1996</a>, p. 4-22 ff., <a href="https://doi.org/10.5281/zenodo.11673333">1998a</a>, <a href="http://doi.org/10.13140/rg.2.2.19532.69768">b</a>, <a href="https://www.academia.edu/82224369/Introduction">2022</a>), Edgington and Onghena (<a href="https://doi.org/10.1201/9781420011814">2007</a>) or Scambor and Schrausser (<a href="https://www.academia.edu/94993376/Introduction_part_II_permutation_tests_for_repeated_measurement_designs_">2023</a>), also Schrausser (<a href="https://doi.org/10.31234/osf.io/rvzxa">2024</a>, p. 29, <a href="https://doi.org/10.31235/osf.io/vs8a6_v1">2025</a>).</p>
+<p><strong>Figure 1.</strong> <code>PRM</code> menu.</p><p><center> <img src="pic0.jpg" alt="figure.\label{pic0}" /></center></p>
+<p><strong>Figure 2.</strong> Randomized Permutation test <em>mP</em>. </p><p><center><img src="pic1.jpg" alt="figure.\label{pic1}" /></center></p>
+<h2 id="example-1">Example 1</h2>
+<p>(c.f. Schrausser, <a href="https://doi.org/10.5281/zenodo.11673333">1998a</a>).</p>
+<p><strong>Figure 3.</strong> Exact Permutation test <em>P</em>. </p><p><center><img src="pic2.jpg" alt="figure.\label{pic2}" /></center></p>
+<p><strong>Figure 4.</strong> Bootstrap method <em>Bt</em>. </p><p><center><img src="pic3.jpg" alt="figure.\label{pic3}" /></center></p>
+<h2 id="example-2">Example 2</h2>
+<p>(c.f. Schrausser, <a href="http://doi.org/10.13140/rg.2.2.19532.69768">1998b</a>).</p>
+<p><strong>Figure 5.</strong> Exact Permutation test <em>P</em>. </p><p><center><img src="pic4.jpg" alt="figure.\label{pic4}" /></center></p>
+<p><strong>Figure 6.</strong> Bootstrap method <em>Bt</em>. </p><p><center><img src="pic5.jpg" alt="figure.\label{pic5}" /></center></p>
+<br>
+<h2 id="references">References</h2>
+<p>Cox, D. R., &amp; Hinkley, D. V. (1974). <em>Theoretical Statistics</em> (1st ed). New York: Chapman and Hall/CRC. <code>eBook ISBN 9780429170218</code> <a href="https://doi.org/10.1201/b14832">DOI:10.1201/b14832</a></p>
+<p>Edgington, E. S., &amp; Onghena, P. (2007). <em>Randomization tests</em> (4th ed). New York: Chapman and Hall/CRC. <code>ISBN 9780367577711, eBook ISBN 9780429142710</code> <a href="https://doi.org/10.1201/9781420011814">DOI:10.1201/9781420011814</a></p>
+<p>Fisher, R. A. (1926). The Arrangement of Field Experiments. <em>Journal of the Ministry of Agriculture, 33</em>, 503–15. <a href="https://doi.org/10.23637/rothamsted.8v61q">DOI:10.23637/rothamsted.8v61q</a></p>
+<p>———. (1935). <em>The Design of Experiments</em>. 1st ed. Edinburgh: Oliver &amp; Boyd. <a href="https://psycnet.apa.org/record/1939-04964-000">https://psycnet.apa.org/record/1939-04964-000</a></p>
+<p>———. (1966). <em>The Design of Experiments</em>. 8th ed. Edinburgh: Hafner. <a href="https://scirp.org/reference/referencespapers.aspx?referenceid=895747">https://scirp.org/reference/referencespapers.aspx?referenceid=895747</a></p>
+<p>———. (1971). <em>The Design of Experiments</em>. 9th ed. New York: Hafner Press. <a href="https://home.iitk.ac.in/~shalab/anova/DOE-RAF.pdf">https://home.iitk.ac.in/~shalab/anova/DOE-RAF.pdf</a></p>
+<p>Neyman, J. (1923). Sur les applications de la theorie des probabilites aux experience agricoles: Essay de principes. <em>Roczniki Nank Polniczek, 10</em>, 1–51. <a href="https://link.springer.com/chapter/10.1007/978-94-015-8816-4_10">https://link.springer.com/chapter/10.1007/978-94-015-8816-4_10</a></p>
+<p>Pitman, E. J. G. (1937a). Significance Tests Which May Be Applied to Samples from Any Populations. <em>Supplement to the Journal of the Royal Statistical Society, 4</em>(1), 119–30. <a href="http://www.jstor.org/stable/2984124">http://www.jstor.org/stable/2984124</a></p>
+<p>———. (1937b). Significance Tests Which May Be Applied to Samples from Any Populations. II. The Correlation Coefficient Test. <em>Supplement to the Journal of the Royal Statistical Society, 4</em>(2), 225–32. <a href="http://www.jstor.org/stable/2983647">http://www.jstor.org/stable/2983647</a></p>
+<p>———. (1938). Significance Tests Which May Be Applied to Samples from Any Populations: III. The Analysis of Variance Test. <em>Biometrika, 29</em>(3/4), 322–35. <a href="http://www.jstor.org/stable/2332008">http://www.jstor.org/stable/2332008</a></p>
+<p>Scambor, C., &amp; Schrausser, D. G. (2023). Introduction (part II, permutation tests for repeated measurement designs).  In:  <em>Permutation methods in single case studies:...</em>. Thesis. Karl Franzens University, Institute of Psychology. Academia. <a href="https://www.academia.edu/94993376/Introduction_part_II_permutation_tests_for_repeated_measurement_designs_">www.academia.edu/94993376</a></p>
+<p>Schrausser, D. G. (1996). Permutationstests: Theoretische und praktische Arbeitsweise von Permutationsverfahren beim unverbundenen 2 Stichprobenproblem. <em>Diplom</em>. Institut für Psychologie, Karl Franzens Universität, Graz. <a href="https://zenodo.org/records/11529663">DOI:10.13140/RG.2.2.24500.32640/1</a></p>
+<p>———. (1998a). Exakte Verfahren oder Asymptotische Approximation. In: Glück. J., Jirasco, M., &amp; Rollett, B. (Hrsg.) <em>Perspektiven psychologischer Forschung in Österreich</em>, Teil 2. WUV-Univ.-Verl., Wien. <code>ISBN 3851144414</code> <a href="https://doi.org/10.5281/zenodo.11673333">DOI:10.5281/zenodo.11673333</a></p>
+<p>———. (1998b). Die Permutationsmethode: Voraussetzungsfrei testen. <em>41. Kongreß der Deutschen Gesellschaft für Psychologie (DGPs)</em>. Dresden. <a href="http://doi.org/10.13140/rg.2.2.19532.69768">DOI:10.13140/rg.2.2.19532.69768 </a></p>
+<p>———. (2022). Thesis chapter 1: Introduction. In: <em>Permutation tests:...</em>. Thesis. Karl Franzens University, Institute of Psychology. Academia. <a href="https://www.academia.edu/82224369/Introduction">www.academia.edu/82224369</a></p>
+<p>———. (2024). <em>Handbook: Distribution Functions (Verteilungs Funktionen)</em>. PsyArXiv. <a href="https://doi.org/10.31234/osf.io/rvzxa">DOI:10.31234/osf.io/rvzxa</a></p>
+<p>———. (2025). Mathematical and Statistical Applications for HP Prime. <em>SocArXiv Papers, August</em>, 1–15. <a href="https://doi.org/10.31235/osf.io/vs8a6_v1">DOI:10.31235/osf.io/vs8a6_v1</a></p>
+
+<hr WIDTH="75%">
+<blockquote ALIGN="CENTER">
+<center>
+<a href="https://github.com/Schrausser/PRM">
+PRM
+</a>
+<br><font color="#999999"><font size=-1>
+<a
+href="https://orcid.org/0000-0002-4924-8280">
+Dietmar Gerald Schrausser
+</a>
+<p>26.11.2025</p>
+</font></font>
+</center>
+</blockquote>
+
+</body>
+</html>
+    
