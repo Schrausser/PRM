@@ -35,9 +35,9 @@ See further Pitman ([1937a](http://www.jstor.org/stable/2984124), [b](http://www
 
 ## References
 
-Cox, D. R., & Hinkley, D. V. (1974). *Theoretical Statistics* (1st ed). New York: Chapman and Hall/CRC. `eBook ISBN 9780429170218` [DOI:10.1201/b14832](https://doi.org/10.1201/b14832)
+Cox, D. R., & Hinkley, D. V. (1974). *Theoretical Statistics*. 1st ed. New York: Chapman and Hall/CRC. `eBook ISBN 9780429170218` [DOI:10.1201/b14832](https://doi.org/10.1201/b14832)
 
-Edgington, E. S., & Onghena, P. (2007). *Randomization tests* (4th ed). New York: Chapman and Hall/CRC. `ISBN 9780367577711, eBook ISBN 9780429142710` [DOI:10.1201/9781420011814](https://doi.org/10.1201/9781420011814)
+Edgington, E. S., & Onghena, P. (2007). *Randomization tests*. 4th ed. New York: Chapman and Hall/CRC. `ISBN 9780367577711, eBook ISBN 9780429142710` [DOI:10.1201/9781420011814](https://doi.org/10.1201/9781420011814)
 
 Fisher, R. A. (1926). The Arrangement of Field Experiments. *Journal of the Ministry of Agriculture, 33*, 503–15. [DOI:10.23637/rothamsted.8v61q](https://doi.org/10.23637/rothamsted.8v61q)
 
