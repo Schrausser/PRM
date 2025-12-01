@@ -12,7 +12,8 @@ first mentioned by Fisher ([1935](https://psycnet.apa.org/record/1939-04964-000)
 
 See further Pitman ([1937a](http://www.jstor.org/stable/2984124), [b](http://www.jstor.org/stable/2983647), [1938](http://www.jstor.org/stable/2332008)), Fisher ([1966](https://scirp.org/reference/referencespapers.aspx?referenceid=895747), [1971](https://home.iitk.ac.in/~shalab/anova/DOE-RAF.pdf)), Cox and Hinkley ([1974](https://doi.org/10.1201/b14832)), Schrausser ([1996](https://zenodo.org/records/11529663), p. 4-22 ff., [1998a](https://doi.org/10.5281/zenodo.11673333), [b](http://doi.org/10.13140/rg.2.2.19532.69768), [2022](https://www.academia.edu/82224369/Introduction)), Edgington and Onghena ([2007](https://doi.org/10.1201/9781420011814)) or Scambor and Schrausser ([2023](https://www.academia.edu/94993376/Introduction_part_II_permutation_tests_for_repeated_measurement_designs_)), also Schrausser ([2024](https://doi.org/10.31234/osf.io/rvzxa), p. 29, [2025](https://doi.org/10.31235/osf.io/vs8a6_v1)).
 
-**Figure 1.** `PRM` menu. ![figure.\label{pic0}](pic0.jpg)
+**Figure 1.** 
+`PRM` menu. ![figure.\label{pic0}](pic0.jpg)
 
 **Figure 2.** Randomized Permutation test *mP*. ![figure.\label{pic1}](pic1.jpg)
 
